@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import AppHeader from './components/header/AppHeader.jsx'
 import BurgerIngredients from './components/burger-ingredients/BurgerIngredients';
@@ -10,9 +9,9 @@ class App extends React.Component {
     return(
     <div className="App">
       <AppHeader/>
-      <main div style={{ display: 'flex'}}>
+      <main style={{ display: 'flex', justifyContent: 'center', gap: '40px'}}>
         <BurgerIngredients/>
-   
+        <BurgerConstructor/>
       </main>
     </div>
   );
