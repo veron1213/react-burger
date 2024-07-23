@@ -1,0 +1,10 @@
+.burger-constructor {
+    height:600px;
+    width:612px;
+}
+
+.burger-bun {
+    display:flex;
+    flex-direction: column;
+    width:568px;
+}

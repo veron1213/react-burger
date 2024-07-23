@@ -1,0 +1,14 @@
+.scroll {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width:612px;
+    height:450px; 
+    overflow:hidden; 
+    overflow-y: scroll; 
+    scrollbar-width: thin;
+}
+
+.ingr {
+    width: 568px;
+}
