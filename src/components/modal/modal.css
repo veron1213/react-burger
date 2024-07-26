@@ -1,0 +1,19 @@
+.modal {
+    height:300px;
+    width:612px;
+    align-items : center; 
+    background-color: #1c1c21;
+    border-radius: 10%;
+    opacity: 1;
+    position: relative;
+}
+
+.headerModal {
+    display: flex;
+    width:612px;
+    align-items : center;
+}
+
+p {
+    align-items: left;
+}
