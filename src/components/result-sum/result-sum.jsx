@@ -19,11 +19,7 @@ function ResultSum() {
     setVisible(false);
   };
 
-  const modal = (
-    <Modal header="" onClose={handleCloseModal}>
-      {<OrderDetails />}
-    </Modal>
-  );
+  const modal = <Modal onClose={handleCloseModal}>{<OrderDetails />}</Modal>;
 
   return (
     <div className="mt-10 mr-4 sumBlock">

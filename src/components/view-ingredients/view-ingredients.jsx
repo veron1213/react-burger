@@ -2,13 +2,13 @@ import React from "react";
 import ViewIngredient from "../view-ingredient/view-ingredient.jsx";
 import { burgerPropTypes } from "../../utils/prop-types.js";
 import PropTypes from "prop-types";
-import "./view-ingredients.css";
+import viewIngredientsStyle from "./view-ingredients.module.css";
 
 function ViewIngredients({ burgerIngr, name, type }) {
   return (
     <>
       <p className="text text_type_main-medium pb-6">{name}</p>
-      <div className="rowIngredient">
+      <div className={viewIngredientsStyle.rowIngredient}>
         {burgerIngr
           .filter((ingr) => ingr.type == type)
           .map((ingr) => (

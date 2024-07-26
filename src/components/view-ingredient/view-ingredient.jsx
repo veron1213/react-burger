@@ -6,7 +6,7 @@ import {
 import { burgerPropTypes } from "../../utils/prop-types.js";
 import "./view-ingredient.css";
 import Modal from "../modal/modal.jsx";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import IngredientDetails from "../ingredient-details/ingredient-details.jsx";
 
 function ViewIngredient({ ingr }) {
@@ -19,18 +19,6 @@ function ViewIngredient({ ingr }) {
   const handleCloseModal = () => {
     setVisible(false);
   };
-
-  /*useEffect(() => {
-    document.addEventListener("keydown", trackMousePos);
-
-    return () => {
-      document.removeEventListener("keydown", trackMousePos);
-    };
-  }, []);
-
-  const trackMousePos = (e) => {
-    e.key === "Escape" && handleCloseModal;
-  };*/
 
   const modal = (
     <Modal header="Детали ингредиента" onClose={handleCloseModal}>

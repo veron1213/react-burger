@@ -5,24 +5,30 @@ import "./ingredient-details.css";
 function IngredientDetails({ ingr }) {
   return (
     <div className="details">
-      <img src={ingr.image} />
-      <h3>{ingr.name}</h3>
-      <div className="cpfc mb-15">
+      <img className="image mb-4" src={ingr.image} />
+      <h3 className="text text_type_main-medium mb-8">{ingr.name}</h3>
+      <div className="cpfc text">
         <div>
-          <p>Калории, ккал</p>
-          <p>{ingr.calories}</p>
+          <p className="textCPFC text text_type_main-default">Калории, ккал</p>
+          <p className="textCPFC text text_type_digits-default">
+            {ingr.calories}
+          </p>
         </div>
         <div>
-          <p>Белки, г</p>
-          <p>{ingr.proteins}</p>
+          <p className="textCPFC text text_type_main-default">Белки, г</p>
+          <p className="textCPFC text text_type_digits-default">
+            {ingr.proteins}
+          </p>
         </div>
         <div>
-          <p>Жиры, г</p>
-          <p>{ingr.fat}</p>
+          <p className="textCPFC text text_type_main-default">Жиры, г</p>
+          <p className="textCPFC text text_type_digits-default">{ingr.fat}</p>
         </div>
         <div>
-          <p>Углеводы, г</p>
-          <p>{ingr.carbohydrates}</p>
+          <p className="textCPFC text text_type_main-default">Углеводы, г</p>
+          <p className="textCPFC text text_type_digits-default">
+            {ingr.carbohydrates}
+          </p>
         </div>
       </div>
     </div>
