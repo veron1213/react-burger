@@ -18,7 +18,7 @@ function ViewIngredients({ burgerIngr, name }) {
 }
 
 ViewIngredients.propTypes = {
-  burgerIngr: PropTypes.arrayOf(burgerPropTypes).isRequired,
+  burgerIngr: PropTypes.arrayOf(burgerPropTypes.isRequired).isRequired,
   name: PropTypes.string.isRequired,
 };
 
