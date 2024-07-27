@@ -3,10 +3,11 @@ import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import "./result-sum.css";
+import resultSumStyle from "./result-sum.module.css";
 import Modal from "../modal/modal.jsx";
 import { useState } from "react";
 import OrderDetails from "../order-details/order-details.jsx";
+import classNames from "classnames";
 
 function ResultSum() {
   const [visible, setVisible] = useState(false);
@@ -19,11 +20,9 @@ function ResultSum() {
     setVisible(false);
   };
 
-  const modal = <Modal onClose={handleCloseModal}>{<OrderDetails />}</Modal>;
-
   return (
-    <div className="mt-10 mr-4 sumBlock">
-      <div className="pr-2 sum">
+    <div className={classNames(resultSumStyle.sumBlock, "mt-10 mr-4")}>
+      <div className={classNames(resultSumStyle.sum, "pr-2")}>
         <h3 className="pr-2 text text_type_main-medium">610</h3>
         <CurrencyIcon type="primary" />
       </div>
@@ -35,7 +34,7 @@ function ResultSum() {
       >
         Оформить заказ
       </Button>
-      {visible && modal}
+      {visible && <Modal onClose={handleCloseModal}>{<OrderDetails />}</Modal>}
     </div>
   );
 }

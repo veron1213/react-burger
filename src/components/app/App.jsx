@@ -4,28 +4,21 @@ import appStyle from "./app.module.css";
 import AppHeader from "../header/app-header.jsx";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients.jsx";
 import BurgerConstructor from "../burger-constructor/burger-constructor.jsx";
+import { getIngredients } from "../../utils/burger-api.js";
 
 function App() {
   const [state, setState] = useState({
     ingredientsData: null,
-    loading: true,
   });
 
   useEffect(() => {
-    const url = `https://norma.nomoreparties.space/api/ingredients`;
-    const getIngredientsData = async () => {
-      setState({ ...state, loading: true });
-      try {
-        const res = await fetch(url);
-        if (res.ok) {
-          const data = await res.json();
-          setState({ ingredientsData: data.data, loading: false });
-        }
-      } catch (e) {
+    getIngredients()
+      .then((data) => {
+        setState({ ingredientsData: data.data });
+      })
+      .catch((e) => {
         console.error(e);
-      }
-    };
-    getIngredientsData();
+      });
   }, []);
 
   return (

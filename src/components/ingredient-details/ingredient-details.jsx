@@ -1,32 +1,86 @@
 import React from "react";
 import { burgerPropTypes } from "../../utils/prop-types.js";
-import "./ingredient-details.css";
+import ingredientDetailsStyle from "./ingredient-details.module.css";
+import classNames from "classnames";
 
 function IngredientDetails({ ingr }) {
   return (
-    <div className="details">
-      <img className="image mb-4" src={ingr.image} />
+    <div className={classNames(ingredientDetailsStyle.details)}>
+      <img
+        className={classNames(ingredientDetailsStyle.image, "mb-4")}
+        src={ingr.image}
+      />
       <h3 className="text text_type_main-medium mb-8">{ingr.name}</h3>
-      <div className="cpfc text">
+      <div className={classNames(ingredientDetailsStyle.cpfc, "text")}>
         <div>
-          <p className="textCPFC text text_type_main-default">Калории, ккал</p>
-          <p className="textCPFC text text_type_digits-default">
+          <p
+            className={classNames(
+              ingredientDetailsStyle.textCPFC,
+              "text text_type_main-default"
+            )}
+          >
+            Калории, ккал
+          </p>
+          <p
+            className={classNames(
+              ingredientDetailsStyle.textCPFC,
+              "text text_type_digits-default"
+            )}
+          >
             {ingr.calories}
           </p>
         </div>
         <div>
-          <p className="textCPFC text text_type_main-default">Белки, г</p>
-          <p className="textCPFC text text_type_digits-default">
+          <p
+            className={classNames(
+              ingredientDetailsStyle.textCPFC,
+              "text text_type_main-default"
+            )}
+          >
+            Белки, г
+          </p>
+          <p
+            className={classNames(
+              ingredientDetailsStyle.textCPFC,
+              "text text_type_digits-default"
+            )}
+          >
             {ingr.proteins}
           </p>
         </div>
         <div>
-          <p className="textCPFC text text_type_main-default">Жиры, г</p>
-          <p className="textCPFC text text_type_digits-default">{ingr.fat}</p>
+          <p
+            className={classNames(
+              ingredientDetailsStyle.textCPFC,
+              "text text_type_main-default"
+            )}
+          >
+            Жиры, г
+          </p>
+          <p
+            className={classNames(
+              ingredientDetailsStyle.textCPFC,
+              "text text_type_digits-default"
+            )}
+          >
+            {ingr.fat}
+          </p>
         </div>
         <div>
-          <p className="textCPFC text text_type_main-default">Углеводы, г</p>
-          <p className="textCPFC text text_type_digits-default">
+          <p
+            className={classNames(
+              ingredientDetailsStyle.textCPFC,
+              "text text_type_main-default"
+            )}
+          >
+            Углеводы, г
+          </p>
+          <p
+            className={classNames(
+              ingredientDetailsStyle.textCPFC,
+              "text text_type_digits-default"
+            )}
+          >
             {ingr.carbohydrates}
           </p>
         </div>

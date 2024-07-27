@@ -1,9 +1,9 @@
-.burger-constructor {
+.burgerConstructor {
     height:600px;
     width:612px;
 }
 
-.burger-bun {
+.burgerBun {
     display:flex;
     flex-direction: column;
     width:568px;

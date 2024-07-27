@@ -3,29 +3,30 @@ import ReactDOM from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { useEffect } from "react";
-import "./modal.css";
+import modalStyle from "./modal.module.css";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
 const modalRoot = document.getElementById("react-modals");
 
 function Modal({ header, children, onClose }) {
   useEffect(() => {
-    document.addEventListener("keydown", trackMousePos);
+    const trackKey = (e) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    document.addEventListener("keydown", trackKey);
 
     return () => {
-      document.removeEventListener("keydown", trackMousePos);
+      document.removeEventListener("keydown", trackKey);
     };
   }, []);
 
-  const trackMousePos = (e) => {
-    if (e.key === "Escape") {
-      onClose();
-    }
-  };
   return ReactDOM.createPortal(
-    <div className="block">
-      <div className="modal p-10">
-        <div className="headerModal">
+    <div className={classNames(modalStyle.block)}>
+      <div className={classNames(modalStyle.modal, "p-10")}>
+        <div className={classNames(modalStyle.headerModal)}>
           <p className="text text_type_main-large">{header}</p>
           <CloseIcon
             type="primary"
@@ -45,8 +46,8 @@ function Modal({ header, children, onClose }) {
 
 Modal.propTypes = {
   header: PropTypes.string,
-  children: PropTypes.node,
-  onClose: PropTypes.func,
+  children: PropTypes.node.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default Modal;
