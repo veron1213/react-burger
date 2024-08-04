@@ -1,0 +1,11 @@
+.sum {
+    display: flex;
+    align-items: center;
+}
+
+.sumBlock {
+    display: flex;
+    align-items: center;
+    text-align: right;
+    justify-content: right;
+}

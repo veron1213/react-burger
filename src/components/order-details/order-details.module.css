@@ -1,0 +1,9 @@
+.containerOrder {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.textGray {
+    color: #8585AD
+}

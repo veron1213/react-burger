@@ -1,0 +1,23 @@
+.cpfc {
+    display: flex; 
+    align-items : center; 
+    justify-content: space-between;
+    gap: 20px;
+    text-align: center;
+}
+
+.textCPFC {
+    text-align : center; 
+    margin: 8px 0;
+    color: #8585AD;
+}
+
+.image {
+    width: 520px;
+}
+
+.details {
+    display: flex; 
+    align-items : center; 
+    flex-direction: column;
+}

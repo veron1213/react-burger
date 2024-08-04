@@ -1,0 +1,14 @@
+.blockIngredient {
+    text-align:center;
+    width:268px; 
+    flex-direction: column; 
+    display: flex; 
+    position: relative;
+    cursor: pointer;
+}
+
+.ingredient {
+    align-items:center;
+    display: flex; 
+    justify-content: center;
+}

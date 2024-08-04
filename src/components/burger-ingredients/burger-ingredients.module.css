@@ -1,0 +1,12 @@
+p {
+    text-align: left;
+}
+
+
+.ingredients {
+    width:612px;
+    height:600px;
+    overflow:hidden;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+}
