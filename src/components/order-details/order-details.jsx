@@ -1,11 +1,15 @@
 import React from "react";
 import orderDetailsStyle from "./order-details.module.css";
 import classNames from "classnames";
+import { useSelector } from "react-redux";
 
 function OrderDetails() {
+  const { order } = useSelector((store) => ({
+    order: store.orderNumber.order,
+  }));
   return (
     <div className={classNames(orderDetailsStyle.containerOrder)}>
-      <p className="text text_type_digits-large mb-8">034536</p>
+      <p className="text text_type_digits-large mb-8">{order}</p>
       <p className="text text_type_main-medium mb-30">идентификатор заказа</p>
       <p className="text text_type_main-default mb-2">
         Ваш заказ начали готовить

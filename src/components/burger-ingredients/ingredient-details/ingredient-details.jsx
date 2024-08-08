@@ -1,16 +1,17 @@
 import React from "react";
-import { burgerPropTypes } from "../../utils/prop-types.js";
 import ingredientDetailsStyle from "./ingredient-details.module.css";
 import classNames from "classnames";
+import { useSelector } from "react-redux";
 
-function IngredientDetails({ ingr }) {
+function IngredientDetails() {
+  const { ingredient } = useSelector((state) => state.ingredientDetails);
   return (
     <div className={classNames(ingredientDetailsStyle.details)}>
       <img
         className={classNames(ingredientDetailsStyle.image, "mb-4")}
-        src={ingr.image}
+        src={ingredient.image}
       />
-      <h3 className="text text_type_main-medium mb-8">{ingr.name}</h3>
+      <h3 className="text text_type_main-medium mb-8">{ingredient.name}</h3>
       <div className={classNames(ingredientDetailsStyle.cpfc, "text")}>
         <div>
           <p
@@ -27,7 +28,7 @@ function IngredientDetails({ ingr }) {
               "text text_type_digits-default"
             )}
           >
-            {ingr.calories}
+            {ingredient.calories}
           </p>
         </div>
         <div>
@@ -45,7 +46,7 @@ function IngredientDetails({ ingr }) {
               "text text_type_digits-default"
             )}
           >
-            {ingr.proteins}
+            {ingredient.proteins}
           </p>
         </div>
         <div>
@@ -63,7 +64,7 @@ function IngredientDetails({ ingr }) {
               "text text_type_digits-default"
             )}
           >
-            {ingr.fat}
+            {ingredient.fat}
           </p>
         </div>
         <div>
@@ -81,16 +82,12 @@ function IngredientDetails({ ingr }) {
               "text text_type_digits-default"
             )}
           >
-            {ingr.carbohydrates}
+            {ingredient.carbohydrates}
           </p>
         </div>
       </div>
     </div>
   );
 }
-
-IngredientDetails.propTypes = {
-  ingr: burgerPropTypes.isRequired,
-};
 
 export default IngredientDetails;
