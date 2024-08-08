@@ -22,6 +22,7 @@ const ViewIngredients = React.forwardRef((props, ref) => {
 ViewIngredients.propTypes = {
   burgerIngr: PropTypes.arrayOf(burgerPropTypes.isRequired).isRequired,
   name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default ViewIngredients;
