@@ -1,6 +1,6 @@
 import {NORMA_API} from './url.js'
 
-async function request(url, options) {
+function request(url, options) {
 
   return fetch(url, options).then(checkResponse)
 }
