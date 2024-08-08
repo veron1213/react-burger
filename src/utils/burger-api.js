@@ -1,12 +1,16 @@
 import {NORMA_API} from './url.js'
 
-export function getIngredients() {
-    return fetch(`${NORMA_API}/ingredients`)
-     .then(checkResponse)
- }
+async function request(url, options) {
 
- export function getOrderNumber(ingredients) {
-  return fetch(`${NORMA_API}/orders`, {
+  return fetch(url, options).then(checkResponse)
+}
+
+ export function getIngredients() {
+  return request(`${NORMA_API}/ingredients`)
+}
+
+export function getOrderNumber(ingredients) {
+  return request(`${NORMA_API}/orders`, {
     method: 'POST',
     body: JSON.stringify({ ingredients}),
     headers: {
@@ -14,9 +18,8 @@ export function getIngredients() {
     },
 
   })
-   .then(checkResponse)
-}
- 
+} 
+
  const checkResponse = res => {
    return res.ok ? res.json() : res.json().then(err => Promise.reject(err));
  };

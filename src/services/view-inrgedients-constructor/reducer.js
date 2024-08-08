@@ -1,4 +1,4 @@
-import { ADD_INGREDIENTS_CONSTRUCTOR, DELETE_INGREDIENTS_CONSTRUCTOR, ADD_BUN_CONSTRUCTOR, REPLACE_INGREDIENTS} from './actions.js';
+import { ADD_INGREDIENTS_CONSTRUCTOR, DELETE_INGREDIENTS_CONSTRUCTOR, ADD_BUN_CONSTRUCTOR, REPLACE_INGREDIENTS, CLEAR_CONSTRUCTOR} from './actions.js';
 
 const initialState = {
     bun: null,
@@ -29,6 +29,11 @@ export const ingredientsConstructorReducer = (state = initialState, action) => {
                     ...state,
                     ingredients: ingredients
 
+                }
+            case CLEAR_CONSTRUCTOR:
+                return {
+                    bun: null,
+                    ingredients: [],
                 }
         default:
             return state;

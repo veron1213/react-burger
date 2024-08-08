@@ -33,10 +33,6 @@ function ResultSum() {
     return summ;
   }, [bun, ingredients]);
 
-  const { loading } = useSelector((store) => ({
-    loading: store.orderNumber.loading,
-  }));
-
   const handleOpenModal = () => {
     if (bun) {
       const ingredientsOrder = ingredients.map((ingredient) => ingredient._id);
@@ -61,9 +57,7 @@ function ResultSum() {
       >
         Оформить заказ
       </Button>
-      {visible && !loading && (
-        <Modal onClose={handleCloseModal}>{<OrderDetails />}</Modal>
-      )}
+      {visible && <Modal onClose={handleCloseModal}>{<OrderDetails />}</Modal>}
     </div>
   );
 }

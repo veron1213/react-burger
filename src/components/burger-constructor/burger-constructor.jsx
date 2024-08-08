@@ -14,13 +14,17 @@ import {
 } from "../../services/view-inrgedients-constructor/actions.js";
 import { nanoid } from "nanoid";
 
-function BurgerConstructor({ burgerIngr }) {
+function BurgerConstructor() {
   const dispatch = useDispatch();
+  const { ingredientsAll } = useSelector((store) => ({
+    ingredientsAll: store.viewIngredientsAll.ingredients,
+  }));
 
   const [, dropTargetBunTop] = useDrop({
     accept: "bun",
     drop(itemId) {
-      const detail = burgerIngr.find((ingr) => ingr._id == itemId._id) || {};
+      const detail =
+        ingredientsAll.find((ingr) => ingr._id == itemId._id) || {};
       dispatch(addBunConstructor(detail));
     },
   });
@@ -28,7 +32,8 @@ function BurgerConstructor({ burgerIngr }) {
   const [, dropTargetBun] = useDrop({
     accept: "bun",
     drop(itemId) {
-      const detail = burgerIngr.find((ingr) => ingr._id == itemId._id) || {};
+      const detail =
+        ingredientsAll.find((ingr) => ingr._id == itemId._id) || {};
       dispatch(addBunConstructor(detail));
     },
   });
@@ -37,7 +42,8 @@ function BurgerConstructor({ burgerIngr }) {
     accept: "ingredient",
     drop(itemId) {
       const key = nanoid();
-      const detail = burgerIngr.find((ingr) => ingr._id == itemId._id) || {};
+      const detail =
+        ingredientsAll.find((ingr) => ingr._id == itemId._id) || {};
       dispatch(addIngredientsConstructor({ ...detail, key }));
     },
   });
@@ -110,9 +116,5 @@ function BurgerConstructor({ burgerIngr }) {
     </div>
   );
 }
-
-BurgerConstructor.propTypes = {
-  burgerIngr: PropTypes.arrayOf(burgerPropTypes.isRequired).isRequired,
-};
 
 export default BurgerConstructor;

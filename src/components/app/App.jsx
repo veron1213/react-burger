@@ -13,9 +13,9 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 function App() {
   const dispatch = useDispatch();
 
-  const [state, setState] = useState({
-    ingredientsData: null,
-  });
+  // const [state, setState] = useState({
+  //   ingredientsData: null,
+  // });
 
   const { ingredients, loading, error } = useSelector(
     (state) => state.viewIngredientsAll
@@ -25,15 +25,15 @@ function App() {
     dispatch(loadIngredients());
   }, []);
 
-  useEffect(() => {
-    getIngredients()
-      .then((data) => {
-        setState({ ingredientsData: data.data });
-      })
-      .catch((e) => {
-        console.error(e);
-      });
-  }, []);
+  // useEffect(() => {
+  //   getIngredients()
+  //     .then((data) => {
+  //       setState({ ingredientsData: data.data });
+  //     })
+  //     .catch((e) => {
+  //       console.error(e);
+  //     });
+  // }, []);
 
   if (loading) {
     return <p>Загрузка...</p>;
@@ -51,10 +51,10 @@ function App() {
     <div className={appStyle.App}>
       <AppHeader />
       <main>
-        {state.ingredientsData && (
+        {!loading && !error && (
           <DndProvider backend={HTML5Backend}>
             <BurgerIngredients />
-            <BurgerConstructor burgerIngr={state.ingredientsData} />
+            <BurgerConstructor />
           </DndProvider>
         )}
       </main>
