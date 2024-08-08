@@ -3,12 +3,9 @@
     flex-direction: column;
     gap: 8px;
     width:612px;
-    height:450px; 
+    max-height:450px; 
+    min-height:80px; 
     overflow:hidden; 
     overflow-y: scroll; 
     scrollbar-width: thin;
-}
-
-.ingr {
-    width: 568px;
 }
