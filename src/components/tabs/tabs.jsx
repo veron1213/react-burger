@@ -2,22 +2,30 @@ import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import tabsStyle from "./tabs.module.css";
 import classNames from "classnames";
+import PropTypes from "prop-types";
 
-const Tabs = () => {
+const Tabs = ({ tabRef, nameMin }) => {
   const [current, setCurrent] = React.useState("one");
   return (
-    <div className={classNames(tabsStyle.tabContainer, "pt-5 mb-10")}>
-      <Tab value="one" active={current === "one"} onClick={setCurrent}>
+    <div
+      className={classNames(tabsStyle.tabContainer, "pt-5 mb-10")}
+      ref={tabRef}
+    >
+      <Tab value="one" active={nameMin === "bun"} onClick={setCurrent}>
         Булки
       </Tab>
-      <Tab value="two" active={current === "two"} onClick={setCurrent}>
-        Соусы
-      </Tab>
-      <Tab value="three" active={current === "three"} onClick={setCurrent}>
+      <Tab value="two" active={nameMin === "main"} onClick={setCurrent}>
         Начинки
+      </Tab>
+      <Tab value="three" active={nameMin === "sauces"} onClick={setCurrent}>
+        Соусы
       </Tab>
     </div>
   );
+};
+
+Tabs.propTypes = {
+  nameMin: PropTypes.string.isRequired,
 };
 
 export default Tabs;
