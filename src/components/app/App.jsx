@@ -1,47 +1,29 @@
 import React from "react";
-import { useEffect, useState } from "react";
+
 import appStyle from "./app.module.css";
 import AppHeader from "../header/app-header.jsx";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients.jsx";
-import BurgerConstructor from "../burger-constructor/burger-constructor.jsx";
-import { useDispatch, useSelector } from "react-redux";
-import { loadIngredients } from "../../services/view-ingredients-all/actions";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+
+import { Routes, Route } from "react-router-dom";
+import { Home } from "../../pages/Home.jsx";
+import { Login } from "../../pages/Login.jsx";
+import { Registration } from "../../pages/Registration";
+import { ForgotPassword } from "../../pages/ForgotPassword";
+import { ResetPassword } from "../../pages/ResetPassword";
+import { Profile } from "../../pages/Profile";
 
 function App() {
-  const dispatch = useDispatch();
-
-  const { ingredients, loading, error } = useSelector(
-    (state) => state.viewIngredientsAll
-  );
-
-  useEffect(() => {
-    dispatch(loadIngredients());
-  }, []);
-
-  if (loading) {
-    return <p>Загрузка...</p>;
-  }
-
-  if (!loading && error) {
-    return <p>Ошибка: {error}</p>;
-  }
-
-  if (!loading && ingredients.length === 0) {
-    return <p>Нет ингредиентов</p>;
-  }
-
   return (
     <div className={appStyle.App}>
       <AppHeader />
       <main>
-        {!loading && !error && (
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </DndProvider>
-        )}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/registration" element={<Registration />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
       </main>
     </div>
   );
