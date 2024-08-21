@@ -6,22 +6,37 @@ import {
   EmailInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDispatch } from "react-redux";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
+import { userRegistration } from "../services/users/actions";
+import { useState } from "react";
 
 export function Registration() {
+  const dispatch = useDispatch();
+
+  const [form, setValue] = useState({
+    email: "",
+    password: "",
+    name: "",
+  });
   const [valuePassword, setValuePassword] = React.useState(null);
   const onChangePassword = (e) => {
-    setValuePassword(e.target.value);
+    setValue({ ...form, [e.target.name]: e.target.value });
   };
   const [valueEmail, setValueEmail] = React.useState(null);
   const onChangeEmail = (e) => {
-    setValueEmail(e.target.value);
+    setValue({ ...form, [e.target.name]: e.target.value });
   };
   const [valueName, setValueName] = React.useState(null);
   const onChangeName = (e) => {
-    setValueName(e.target.value);
+    setValue({ ...form, [e.target.name]: e.target.value });
   };
+
+  const registration = () => {
+    dispatch(userRegistration(form));
+  };
+
   return (
     <div className={pageStyle.child}>
       <p className="text text_type_main-medium pb-6">Регистрация</p>
@@ -54,7 +69,12 @@ export function Registration() {
           extraClass="mb-2"
         />
       </div>
-      <Button htmlType="button" type="primary" size="medium">
+      <Button
+        htmlType="button"
+        type="primary"
+        size="medium"
+        onClick={registration}
+      >
         Зарегистрироваться
       </Button>
       <div className={classNames(pageStyle.action, "pt-20")}>

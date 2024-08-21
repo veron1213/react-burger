@@ -6,17 +6,32 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { authorization } from "../services/users/actions";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 export function Login() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [form, setValue] = useState({
+    email: "",
+    password: "",
+  });
   const [valuePassword, setValuePassword] = React.useState(null);
   const onChangePassword = (e) => {
-    setValuePassword(e.target.value);
+    setValue({ ...form, [e.target.name]: e.target.value });
   };
-  const [valueEmail, setValue] = React.useState(null);
+  const [valueEmail, setValueEmail] = React.useState(null);
   const onChangeEmail = (e) => {
-    setValue(e.target.value);
+    setValue({ ...form, [e.target.name]: e.target.value });
   };
+
+  const authorizationOnClick = () => {
+    dispatch(authorization(form));
+    navigate("/");
+  };
+
   return (
     <div className={pageStyle.child}>
       <p className="text text_type_main-medium pb-6">Вход</p>
@@ -36,7 +51,12 @@ export function Login() {
           extraClass="mb-2"
         />
       </div>
-      <Button htmlType="button" type="primary" size="medium">
+      <Button
+        htmlType="button"
+        type="primary"
+        size="medium"
+        onClick={authorizationOnClick}
+      >
         Войти
       </Button>
       <div className={classNames(pageStyle.action, "pt-20")}>

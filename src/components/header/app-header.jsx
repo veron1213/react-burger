@@ -8,6 +8,10 @@ import {
 import appHeader from "./app-header.module.css";
 import { NavLink } from "react-router-dom";
 
+function isActiveLink({ isActive }) {
+  return isActive ? "primary" : "secondary";
+}
+
 function AppHeader() {
   return (
     <div className={appHeader.header}>
@@ -18,7 +22,12 @@ function AppHeader() {
             isActive ? appHeader.lsheaderitemActive : appHeader.lsheaderitem
           }
         >
-          <BurgerIcon type="primary" />
+          {({ isActive }) => {
+            console.log({ isActive });
+            <BurgerIcon type="primary"></BurgerIcon>;
+          }}
+
+          {/* <BurgerIcon type="primary" /> */}
           <p className="text text_type_main-default ml-2 mr-2">Конструктор</p>
         </NavLink>
         <a href="#" className={appHeader.lsheaderitem}>

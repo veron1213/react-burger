@@ -3,21 +3,42 @@ import pageStyle from "./pages.module.css";
 import {
   Input,
   PasswordInput,
-  EmailInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { resetPassword } from "../services/users/actions";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export function ResetPassword() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [form, setValue] = useState({
+    password: "",
+    token: "",
+  });
   const [valuePassword, setValuePassword] = React.useState(null);
   const onChangePassword = (e) => {
-    setValuePassword(e.target.value);
+    setValue({ ...form, [e.target.name]: e.target.value });
   };
-  const [valueCode, setValueCode] = React.useState(null);
-  const onChangeCode = (e) => {
-    setValueCode(e.target.value);
+  const [valueToken, setValueToken] = React.useState(null);
+  const onChangeToken = (e) => {
+    setValue({ ...form, [e.target.name]: e.target.value });
   };
+
+  const resetPasswordOnClick = () => {
+    dispatch(resetPassword(form));
+    localStorage.removeItem("resetPassword");
+    navigate("/login");
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("resetPassword") === null) {
+      navigate("/forgot-password");
+    }
+  }, [navigate]);
 
   return (
     <div className={pageStyle.child}>
@@ -35,16 +56,21 @@ export function ResetPassword() {
         <Input
           type={"text"}
           placeholder="Введите код из письма"
-          onChange={onChangeCode}
-          value={valueCode}
-          name={"name"}
+          onChange={onChangeToken}
+          value={valueToken}
+          name={"token"}
           error={false}
           errorText={"Ошибка"}
           size={"default"}
           extraClass="ml-1"
         />
       </div>
-      <Button htmlType="button" type="primary" size="medium">
+      <Button
+        htmlType="button"
+        type="primary"
+        size="medium"
+        onClick={resetPasswordOnClick}
+      >
         Сохранить
       </Button>
       <div className={classNames(pageStyle.action, "pt-20")}>
