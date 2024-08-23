@@ -15,6 +15,7 @@ export function getOrderNumber(ingredients) {
     body: JSON.stringify({ ingredients}),
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
+      Authorization: 'Bearer ' + localStorage.getItem("accessToken")
     },
 
   })
@@ -83,6 +84,29 @@ export function getUserApi() {
       Authorization: 'Bearer ' + localStorage.getItem("accessToken")
     },
 
+  })
+} 
+
+export function updateTokenApi() {
+  return request(`${NORMA_API}/auth/token`, {
+    method: 'POST',
+    body: JSON.stringify({"token": localStorage.getItem("refreshToken")}),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+
+  })
+} 
+
+export function updateInformationApi(data) {
+  console.log(data)
+  return request(`${NORMA_API}/auth/user`, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+      Authorization: 'Bearer ' + localStorage.getItem("accessToken")
+    },
   })
 } 
 

@@ -1,5 +1,6 @@
 import { registration, forgotPasswordApi, resetPasswordApi,
-         authorizationApi, logoutApi, getUserApi } from "../../utils/burger-api.js";
+         authorizationApi, logoutApi, getUserApi, updateTokenApi,
+         updateInformationApi } from "../../utils/burger-api.js";
 
 export const USER_REGISTRATION_SUCCESS = "USER_REGISTRATION_SUCCESS";
 export const USER_REGISTRATION_ERROR = "USER_REGISTRATION_ERROR";
@@ -25,6 +26,41 @@ export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
 export const GET_USER_ERROR = "GET_USER_ERROR";
 export const GET_USER = "GET_USER";
 
+export const UPDATE_TOKEN_SUCCESS = "UPDATE_TOKEN_SUCCESS";
+export const UPDATE_TOKEN_ERROR = "UPDATE_TOKEN_ERROR";
+export const UPDATE_TOKEN = "UPDATE_TOKEN";
+
+export const SET_USER = "SET_USER";
+export const SET_AUTH_CHECKED = "SET_AUTH_CHECKED";
+
+export const UPDATE_INFORMATION = "UPDATE_INFORMATION";
+export const UPDATE_ERROR = "UPDATE_ERROR";
+
+export const setAuthChecked = (value) => ({
+  type: SET_AUTH_CHECKED,
+  payload: value,
+});
+
+export const setUser = (user) => ({
+  type: SET_USER,
+  payload: user,
+});
+
+export const checkUserAuth = () => {
+  return (dispatch) => {
+      if (localStorage.getItem("accessToken")) {
+          dispatch(getUser())
+            .catch(() => {
+                localStorage.removeItem("accessToken");
+                localStorage.removeItem("refreshToken");
+                dispatch(setUser(null));
+             })
+            .finally(() => dispatch(setAuthChecked(true)));
+      } else {
+          dispatch(setAuthChecked(true));
+      }
+  };
+};
 
 export const userRegistration = (form) => dispatch => {
 
@@ -35,7 +71,7 @@ export const userRegistration = (form) => dispatch => {
       .then((data) => {
         dispatch({
             type: USER_REGISTRATION_SUCCESS,
-            payload: data.user,
+          //  payload: data.user,
           });
 
           localStorage.setItem("accessToken", data.accessToken.split('Bearer ')[1]);
@@ -58,7 +94,7 @@ export const forgotPassword = (form) => dispatch => {
     .then((data) => {
       dispatch({
           type: FORGOT_PASSWORD_SUCCESS,
-          payload: data.data,
+         // payload: data.data,
         });
 
     })
@@ -78,7 +114,7 @@ export const resetPassword = (form) => dispatch => {
     .then((data) => {
       dispatch({
           type: RESET_PASSWORD_SUCCESS,
-          payload: data.data,
+        //  payload: data.data,
         });
     })
     .catch((e) => {
@@ -97,10 +133,12 @@ export const authorization = (form) => dispatch => {
     .then((data) => {
       dispatch({
           type: AUTHORIZATION_SUCCESS,
-          payload: data.user,
+        //  payload: setUser(data.user),
         });
       localStorage.setItem("accessToken", data.accessToken.split('Bearer ')[1]);
       localStorage.setItem("refreshToken", data.refreshToken);
+      dispatch(setUser(data.user));
+      dispatch(setAuthChecked(true));
     })
     .catch((e) => {
       dispatch({
@@ -111,18 +149,24 @@ export const authorization = (form) => dispatch => {
 }
 
 
-export const logout = () => dispatch => {
+export const logout = () => dispatch=>  {  
+
   dispatch({
       type: LOGOUT,
   });
   logoutApi()
-    .then((data) => {
-      dispatch({
-          type: LOGOUT_SUCCESS,
-          payload: data,
-        });
+    .then(() => {
+
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
+      const user= {email: null,
+                      name: null,
+                  };
+      dispatch(setUser(user));
+      dispatch({
+        type: LOGOUT_SUCCESS,
+      });
+
     })
     .catch((e) => {
       dispatch({
@@ -132,22 +176,73 @@ export const logout = () => dispatch => {
     });
 }
 
-export const getUser = () => dispatch => {
+export const getUser = () => {
+  return (dispatch) => {
+    return getUserApi().then((data) => {
+      dispatch(setUser(data.user));
+    });
+  };
+};
+
+export const updateInformation = (form) => dispatch=>{
+  console.log(form)
   dispatch({
-      type: GET_USER,
+    type: UPDATE_INFORMATION,
+});
+updateInformationApi(form)
+  .then((data) => {
+    console.log(data)
+    dispatch(setUser(data.user));
+    })
+  .catch((e) => {
+    if (e.message === "jwt expired") {
+      updateToken();
+      dispatch(updateInformation(form))
+  } else {
+    dispatch({
+        type: UPDATE_ERROR,
+        payload: e.message,
+      });
+  }});
+}
+
+
+// export const getUser = () => dispatch => {
+//   dispatch({
+//       type: GET_USER,
+//   });
+//   getUserApi()
+//     .then((data) => {
+//       dispatch({
+//           type: GET_USER_SUCCESS,
+//        //   payload: data.user,
+//         });
+//         dispatch(setUser(data.user));
+//     })
+//     .catch((e) => {
+//       dispatch({
+//           type: GET_USER_ERROR,
+//           payload: e.message,
+//         });
+//     });
+// }
+
+export const updateToken = () => dispatch => {
+  dispatch({
+      type: UPDATE_TOKEN,
   });
-  logoutApi()
+  updateTokenApi()
     .then((data) => {
       dispatch({
-          type: GET_USER_SUCCESS,
+          type: UPDATE_TOKEN_SUCCESS,
           payload: data.user,
         });
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
+        localStorage.setItem("accessToken", data.accessToken.split('Bearer ')[1]);
+        localStorage.setItem("refreshToken", data.refreshToken);
     })
     .catch((e) => {
       dispatch({
-          type: GET_USER_ERROR,
+          type: UPDATE_TOKEN_ERROR,
           payload: e.message,
         });
     });

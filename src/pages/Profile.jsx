@@ -8,8 +8,9 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import classNames from "classnames";
 import { NavLink } from "react-router-dom";
-import { logout } from "../services/users/actions";
+import { logout, updateInformation } from "../services/users/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 const getNavLinkClassName = ({ isActive }) => {
   const navigationItemStyle = isActive
@@ -24,31 +25,59 @@ export function Profile() {
     name: store.user.user.name,
     email: store.user.user.email,
   }));
+
   const dispatch = useDispatch();
-  const [valueLogin, setValueLogin] = React.useState(null);
+  const [valueLogin, setValueLogin] = React.useState(email);
   const onChangeLogin = (e) => {
     setValueLogin(e.target.value);
+    setValue({ ...form, [e.target.name]: e.target.value });
   };
-  const [valueName, setValueName] = React.useState(null);
+  const [valueName, setValueName] = React.useState(name);
   const onChangeName = (e) => {
     setValueName(e.target.value);
+    setValue({ ...form, [e.target.name]: e.target.value });
   };
   const [valuePassword, setValuePassword] = React.useState(null);
   const onChangePassword = (e) => {
     setValuePassword(e.target.value);
+    setValue({ ...form, [e.target.name]: e.target.value });
   };
 
   const logoutOnClick = () => {
     dispatch(logout());
   };
 
+  useEffect(() => {
+    setValueName(name);
+    setValueLogin(email);
+  }, [email, name]);
+
+  const reset = () => {
+    setValuePassword("");
+    setValueName(name);
+    setValueLogin(email);
+  };
+  const [form, setValue] = useState({
+    name: valueName,
+    email: valueLogin,
+
+    password: "",
+  });
+  const updateInfo = () => {
+    dispatch(updateInformation(form));
+  };
+
   return (
     <div className={pageStyle.container}>
       <div className={classNames(pageStyle.navigation, "pr-15")}>
-        <NavLink to={"/profile"} className={getNavLinkClassName}>
+        <NavLink to={"/profile"} className={getNavLinkClassName} end={false}>
           Профиль
         </NavLink>
-        <NavLink to={"/profile/orders"} className={getNavLinkClassName}>
+        <NavLink
+          to={"/profile/orders"}
+          className={getNavLinkClassName}
+          end={false}
+        >
           История заказов
         </NavLink>
         <NavLink
@@ -73,7 +102,7 @@ export function Profile() {
             type={"text"}
             placeholder="Имя"
             onChange={onChangeName}
-            value={name}
+            value={valueName}
             name={"name"}
             error={false}
             icon={"EditIcon"}
@@ -82,7 +111,7 @@ export function Profile() {
         <div className={classNames(pageStyle.input, "pb-6")}>
           <EmailInput
             onChange={onChangeLogin}
-            value={email}
+            value={valueLogin}
             name={"email"}
             placeholder="Логин"
             icon={"EditIcon"}
@@ -97,6 +126,28 @@ export function Profile() {
             icon={"EditIcon"}
           />
         </div>
+        {(valuePassword != null ||
+          valueName != name ||
+          valueLogin != email) && (
+          <>
+            <Button
+              htmlType="button"
+              type="secondary"
+              size="medium"
+              onClick={reset}
+            >
+              Отмена
+            </Button>
+            <Button
+              htmlType="submit"
+              type="primary"
+              size="medium"
+              onClick={updateInfo}
+            >
+              Сохранить
+            </Button>
+          </>
+        )}
       </div>
     </div>
   );

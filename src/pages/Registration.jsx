@@ -40,43 +40,40 @@ export function Registration() {
   return (
     <div className={pageStyle.child}>
       <p className="text text_type_main-medium pb-6">Регистрация</p>
-      <div className={classNames(pageStyle.input, "pb-6")}>
-        <Input
-          type={"text"}
-          placeholder="Имя"
-          onChange={onChangeName}
-          value={valueName}
-          name={"name"}
-          error={false}
-          errorText={"Ошибка"}
-          size={"default"}
-          extraClass="ml-1"
-        />
-      </div>
-      <div className={classNames(pageStyle.input, "pb-6")}>
-        <EmailInput
-          onChange={onChangeEmail}
-          value={valueEmail}
-          name={"email"}
-          isIcon={false}
-        />
-      </div>
-      <div className={classNames(pageStyle.input, "pb-6")}>
-        <PasswordInput
-          onChange={onChangePassword}
-          value={valuePassword}
-          name={"password"}
-          extraClass="mb-2"
-        />
-      </div>
-      <Button
-        htmlType="button"
-        type="primary"
-        size="medium"
-        onClick={registration}
-      >
-        Зарегистрироваться
-      </Button>
+      <form onSubmit={registration}>
+        <div className={classNames(pageStyle.input, "pb-6")}>
+          <Input
+            type={"text"}
+            placeholder="Имя"
+            onChange={onChangeName}
+            value={valueName}
+            name={"name"}
+            error={false}
+            errorText={"Ошибка"}
+            size={"default"}
+            extraClass="ml-1"
+          />
+        </div>
+        <div className={classNames(pageStyle.input, "pb-6")}>
+          <EmailInput
+            onChange={onChangeEmail}
+            value={valueEmail}
+            name={"email"}
+            isIcon={false}
+          />
+        </div>
+        <div className={classNames(pageStyle.input, "pb-6")}>
+          <PasswordInput
+            onChange={onChangePassword}
+            value={valuePassword}
+            name={"password"}
+            extraClass="mb-2"
+          />
+        </div>
+        <Button htmlType="submit" type="primary" size="medium">
+          Зарегистрироваться
+        </Button>
+      </form>
       <div className={classNames(pageStyle.action, "pt-20")}>
         <p
           className={classNames(

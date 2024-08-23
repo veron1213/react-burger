@@ -14,21 +14,21 @@ export function Home() {
     (state) => state.viewIngredientsAll
   );
 
-  useEffect(() => {
-    dispatch(loadIngredients());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(loadIngredients());
+  // }, []);
 
-  if (loading) {
-    return <p>Загрузка...</p>;
-  }
+  // if (loading) {
+  //   return <p>Загрузка...</p>;
+  // }
 
-  if (!loading && error) {
-    return <p>Ошибка: {error}</p>;
-  }
+  // if (!loading && error) {
+  //   return <p>Ошибка: {error}</p>;
+  // }
 
-  if (!loading && ingredients.length === 0) {
-    return <p>Нет ингредиентов</p>;
-  }
+  // if (!loading && ingredients.length === 0) {
+  //   return <p>Нет ингредиентов</p>;
+  // }
 
   return (
     <>

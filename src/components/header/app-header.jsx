@@ -8,10 +8,6 @@ import {
 import appHeader from "./app-header.module.css";
 import { NavLink } from "react-router-dom";
 
-function isActiveLink({ isActive }) {
-  return isActive ? "primary" : "secondary";
-}
-
 function AppHeader() {
   return (
     <div className={appHeader.header}>
@@ -22,28 +18,36 @@ function AppHeader() {
             isActive ? appHeader.lsheaderitemActive : appHeader.lsheaderitem
           }
         >
-          {({ isActive }) => {
-            console.log({ isActive });
-            <BurgerIcon type="primary"></BurgerIcon>;
-          }}
-
-          {/* <BurgerIcon type="primary" /> */}
-          <p className="text text_type_main-default ml-2 mr-2">Конструктор</p>
+          {({ isActive }) => (
+            <>
+              <BurgerIcon type={isActive ? "primary" : "secondary"} />
+              <p className="text text_type_main-default ml-2 mr-2">
+                Конструктор
+              </p>
+            </>
+          )}
         </NavLink>
         <a href="#" className={appHeader.lsheaderitem}>
           <ListIcon type="secondary" />
           <p className="text text_type_main-default ml-2">Лента заказов</p>
         </a>
       </div>
-      <Logo />
+      <NavLink to={"/"}>
+        <Logo />
+      </NavLink>
       <NavLink
         to={"/profile"}
         className={({ isActive }) =>
           isActive ? appHeader.rsheaderActive : appHeader.rsheader
         }
+        end={false}
       >
-        <ProfileIcon type="secondary" />
-        <p className="text text_type_main-default ml-2">Личный кабинет</p>
+        {({ isActive }) => (
+          <>
+            <ProfileIcon type={isActive ? "primary" : "secondary"} />
+            <p className="text text_type_main-default ml-2">Личный кабинет</p>
+          </>
+        )}
       </NavLink>
     </div>
   );

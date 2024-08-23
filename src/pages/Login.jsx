@@ -35,30 +35,27 @@ export function Login() {
   return (
     <div className={pageStyle.child}>
       <p className="text text_type_main-medium pb-6">Вход</p>
-      <div className={classNames(pageStyle.input, "pb-6")}>
-        <EmailInput
-          onChange={onChangeEmail}
-          value={valueEmail}
-          name={"email"}
-          isIcon={false}
-        />
-      </div>
-      <div className={classNames(pageStyle.input, "pb-6")}>
-        <PasswordInput
-          onChange={onChangePassword}
-          value={valuePassword}
-          name={"password"}
-          extraClass="mb-2"
-        />
-      </div>
-      <Button
-        htmlType="button"
-        type="primary"
-        size="medium"
-        onClick={authorizationOnClick}
-      >
-        Войти
-      </Button>
+      <form onSubmit={authorizationOnClick}>
+        <div className={classNames(pageStyle.input, "pb-6")}>
+          <EmailInput
+            onChange={onChangeEmail}
+            value={valueEmail}
+            name={"email"}
+            isIcon={false}
+          />
+        </div>
+        <div className={classNames(pageStyle.input, "pb-6")}>
+          <PasswordInput
+            onChange={onChangePassword}
+            value={valuePassword}
+            name={"password"}
+            extraClass="mb-2"
+          />
+        </div>
+        <Button htmlType="submit" type="primary" size="medium">
+          Войти
+        </Button>
+      </form>
       <div className={classNames(pageStyle.action, "pt-20")}>
         <p
           className={classNames(

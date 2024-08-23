@@ -31,23 +31,20 @@ export function ForgotPassword() {
   return (
     <div className={pageStyle.child}>
       <p className="text text_type_main-medium pb-6">Восстановление пароля</p>
-      <div className={classNames(pageStyle.input, "pb-6")}>
-        <EmailInput
-          onChange={onChangeEmail}
-          value={valueEmail}
-          name={"email"}
-          placeholder="Укажите e-mail"
-          isIcon={false}
-        />
-      </div>
-      <Button
-        htmlType="button"
-        type="primary"
-        size="medium"
-        onClick={sendOnEmail}
-      >
-        Восстановить
-      </Button>
+      <form onSubmit={sendOnEmail}>
+        <div className={classNames(pageStyle.input, "pb-6")}>
+          <EmailInput
+            onChange={onChangeEmail}
+            value={valueEmail}
+            name={"email"}
+            placeholder="Укажите e-mail"
+            isIcon={false}
+          />
+        </div>
+        <Button htmlType="submit" type="primary" size="medium">
+          Восстановить
+        </Button>
+      </form>
       <div className={classNames(pageStyle.action, "pt-20")}>
         <p
           className={classNames(

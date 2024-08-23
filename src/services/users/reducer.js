@@ -4,6 +4,7 @@ import { USER_REGISTRATION_SUCCESS, USER_REGISTRATION_ERROR, USER_REGISTRATION,
          AUTHORIZATION_SUCCESS, AUTHORIZATION_ERROR, AUTHORIZATION,
          LOGOUT_SUCCESS, LOGOUT_ERROR, LOGOUT,
          GET_USER_SUCCESS, GET_USER_ERROR, GET_USER,
+         SET_USER, SET_AUTH_CHECKED
 } from './actions.js';
 
 const initialState = {
@@ -11,12 +12,19 @@ const initialState = {
             email: null, 
             name: null,
         },
+    isAuthChecked: false,
     loading: false,
     error: null,
 };
 
 export const userReducer = (state = initialState, action) => {
     switch (action.type) {
+        case SET_AUTH_CHECKED:
+      return {
+        ...state,
+        isAuthChecked: action.payload
+      }
+
         case USER_REGISTRATION:
         case FORGOT_PASSWORD:
         case RESET_PASSWORD:
@@ -28,9 +36,8 @@ export const userReducer = (state = initialState, action) => {
                 loading: true,
                 error: null,
             }
-        case USER_REGISTRATION_SUCCESS:
-        case GET_USER_SUCCESS:
-        case AUTHORIZATION_SUCCESS:
+       
+        case SET_USER:
             return {
                 ...state,
                 user: {email: action.payload.email,
@@ -49,8 +56,10 @@ export const userReducer = (state = initialState, action) => {
                 error: action.payload,
                 loading: false,
             }
-
-
+        
+        case AUTHORIZATION_SUCCESS:
+        case USER_REGISTRATION_SUCCESS:
+        case GET_USER_SUCCESS:
         case FORGOT_PASSWORD_SUCCESS:
         case RESET_PASSWORD_SUCCESS:
             return {

@@ -43,36 +43,33 @@ export function ResetPassword() {
   return (
     <div className={pageStyle.child}>
       <p className="text text_type_main-medium pb-6">Восстановление пароля</p>
-      <div className={classNames(pageStyle.input, "pb-6")}>
-        <PasswordInput
-          onChange={onChangePassword}
-          value={valuePassword}
-          name={"password"}
-          placeholder="Введите новый пароль"
-          extraClass="mb-2"
-        />
-      </div>
-      <div className={classNames(pageStyle.input, "pb-6")}>
-        <Input
-          type={"text"}
-          placeholder="Введите код из письма"
-          onChange={onChangeToken}
-          value={valueToken}
-          name={"token"}
-          error={false}
-          errorText={"Ошибка"}
-          size={"default"}
-          extraClass="ml-1"
-        />
-      </div>
-      <Button
-        htmlType="button"
-        type="primary"
-        size="medium"
-        onClick={resetPasswordOnClick}
-      >
-        Сохранить
-      </Button>
+      <form onSubmit={resetPasswordOnClick}>
+        <div className={classNames(pageStyle.input, "pb-6")}>
+          <PasswordInput
+            onChange={onChangePassword}
+            value={valuePassword}
+            name={"password"}
+            placeholder="Введите новый пароль"
+            extraClass="mb-2"
+          />
+        </div>
+        <div className={classNames(pageStyle.input, "pb-6")}>
+          <Input
+            type={"text"}
+            placeholder="Введите код из письма"
+            onChange={onChangeToken}
+            value={valueToken}
+            name={"token"}
+            error={false}
+            errorText={"Ошибка"}
+            size={"default"}
+            extraClass="ml-1"
+          />
+        </div>
+        <Button htmlType="submit" type="primary" size="medium">
+          Сохранить
+        </Button>
+      </form>
       <div className={classNames(pageStyle.action, "pt-20")}>
         <p
           className={classNames(
