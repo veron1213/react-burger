@@ -18,7 +18,6 @@ function IngredientDetails() {
 
   useEffect(() => {
     if (ingrForId) {
-      console.log(444);
       const detail = {
         image: ingrForId.image,
         name: ingrForId.name,

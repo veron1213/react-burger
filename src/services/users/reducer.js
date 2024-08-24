@@ -30,12 +30,13 @@ export const userReducer = (state = initialState, action) => {
         case RESET_PASSWORD:
         case AUTHORIZATION:
         case LOGOUT:
-        case GET_USER:
+        case GET_USER: {
             return {
                 ...state,
                 loading: true,
                 error: null,
             }
+        }
        
         case SET_USER:
             return {

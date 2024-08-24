@@ -36,3 +36,8 @@
 .editItem {
     flex: 1 1;
 }
+
+.buttonDiv {
+    width: 480px;
+    text-align: end;
+}

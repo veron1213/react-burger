@@ -10,7 +10,8 @@ import classNames from "classnames";
 import { NavLink } from "react-router-dom";
 import { logout, updateInformation } from "../services/users/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+
+import { useForm } from "../hooks/useForm";
 
 const getNavLinkClassName = ({ isActive }) => {
   const navigationItemStyle = isActive
@@ -27,44 +28,27 @@ export function Profile() {
   }));
 
   const dispatch = useDispatch();
-  const [valueLogin, setValueLogin] = React.useState(email);
-  const onChangeLogin = (e) => {
-    setValueLogin(e.target.value);
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
-  const [valueName, setValueName] = React.useState(name);
-  const onChangeName = (e) => {
-    setValueName(e.target.value);
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
-  const [valuePassword, setValuePassword] = React.useState(null);
-  const onChangePassword = (e) => {
-    setValuePassword(e.target.value);
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
 
   const logoutOnClick = () => {
     dispatch(logout());
+    localStorage.removeItem("resetPassword"); //для логики, если сначала забыли пароль, а потом вошли без сброса
   };
-
-  useEffect(() => {
-    setValueName(name);
-    setValueLogin(email);
-  }, [email, name]);
 
   const reset = () => {
-    setValuePassword("");
-    setValueName(name);
-    setValueLogin(email);
+    setValues({
+      name: name,
+      email: email,
+      password: "",
+    });
   };
-  const [form, setValue] = useState({
-    name: valueName,
-    email: valueLogin,
 
+  const { values, handleChange, setValues } = useForm({
+    name: name,
+    email: email,
     password: "",
   });
   const updateInfo = () => {
-    dispatch(updateInformation(form));
+    dispatch(updateInformation(values));
   };
 
   return (
@@ -101,8 +85,8 @@ export function Profile() {
           <Input
             type={"text"}
             placeholder="Имя"
-            onChange={onChangeName}
-            value={valueName}
+            onChange={handleChange}
+            value={values.name}
             name={"name"}
             error={false}
             icon={"EditIcon"}
@@ -110,8 +94,8 @@ export function Profile() {
         </div>
         <div className={classNames(pageStyle.input, "pb-6")}>
           <EmailInput
-            onChange={onChangeLogin}
-            value={valueLogin}
+            onChange={handleChange}
+            value={values.email}
             name={"email"}
             placeholder="Логин"
             icon={"EditIcon"}
@@ -119,17 +103,17 @@ export function Profile() {
         </div>
         <div className={classNames(pageStyle.input, "pb-6")}>
           <PasswordInput
-            onChange={onChangePassword}
-            value={valuePassword}
+            onChange={handleChange}
+            value={values.password}
             name={"password"}
             placeholder="Пароль"
             icon={"EditIcon"}
           />
         </div>
-        {(valuePassword != null ||
-          valueName != name ||
-          valueLogin != email) && (
-          <>
+        {(values.password != "" ||
+          values.name != name ||
+          values.email != email) && (
+          <div className={pageStyle.buttonDiv}>
             <Button
               htmlType="button"
               type="secondary"
@@ -146,7 +130,7 @@ export function Profile() {
             >
               Сохранить
             </Button>
-          </>
+          </div>
         )}
       </div>
     </div>

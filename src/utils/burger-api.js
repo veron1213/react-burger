@@ -99,7 +99,6 @@ export function updateTokenApi() {
 } 
 
 export function updateInformationApi(data) {
-  console.log(data)
   return request(`${NORMA_API}/auth/user`, {
     method: 'PATCH',
     body: JSON.stringify(data),

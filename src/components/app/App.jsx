@@ -26,7 +26,7 @@ function App() {
     navigate(-1);
   };
   const dispatch = useDispatch();
-  let location = useLocation();
+  const location = useLocation();
 
   let state = location.state && location.state.background;
   const { loading, error } = useSelector((state) => state.viewIngredientsAll);

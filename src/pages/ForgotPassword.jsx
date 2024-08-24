@@ -10,20 +10,17 @@ import { forgotPassword } from "../services/users/actions";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "../hooks/useForm";
 
 export function ForgotPassword() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [form, setValue] = useState({
+  const { values, handleChange, setValues } = useForm({
     email: "",
   });
-  const [valueEmail, setValueEmail] = React.useState(null);
-  const onChangeEmail = (e) => {
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const sendOnEmail = () => {
-    dispatch(forgotPassword(form));
+    dispatch(forgotPassword(values));
     localStorage.setItem("resetPassword", true);
     navigate("/reset-password");
   };
@@ -34,8 +31,8 @@ export function ForgotPassword() {
       <form onSubmit={sendOnEmail}>
         <div className={classNames(pageStyle.input, "pb-6")}>
           <EmailInput
-            onChange={onChangeEmail}
-            value={valueEmail}
+            onChange={handleChange}
+            value={values.email}
             name={"email"}
             placeholder="Укажите e-mail"
             isIcon={false}

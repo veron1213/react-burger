@@ -9,27 +9,19 @@ import classNames from "classnames";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { resetPassword } from "../services/users/actions";
-import { useState } from "react";
+import { useForm } from "../hooks/useForm";
 import { useEffect } from "react";
 
 export function ResetPassword() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [form, setValue] = useState({
-    password: "",
+  const { values, handleChange, setValues } = useForm({
     token: "",
+    password: "",
   });
-  const [valuePassword, setValuePassword] = React.useState(null);
-  const onChangePassword = (e) => {
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
-  const [valueToken, setValueToken] = React.useState(null);
-  const onChangeToken = (e) => {
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
 
   const resetPasswordOnClick = () => {
-    dispatch(resetPassword(form));
+    dispatch(resetPassword(values));
     localStorage.removeItem("resetPassword");
     navigate("/login");
   };
@@ -46,8 +38,8 @@ export function ResetPassword() {
       <form onSubmit={resetPasswordOnClick}>
         <div className={classNames(pageStyle.input, "pb-6")}>
           <PasswordInput
-            onChange={onChangePassword}
-            value={valuePassword}
+            onChange={handleChange}
+            value={values.password}
             name={"password"}
             placeholder="Введите новый пароль"
             extraClass="mb-2"
@@ -57,8 +49,8 @@ export function ResetPassword() {
           <Input
             type={"text"}
             placeholder="Введите код из письма"
-            onChange={onChangeToken}
-            value={valueToken}
+            onChange={handleChange}
+            value={values.token}
             name={"token"}
             error={false}
             errorText={"Ошибка"}

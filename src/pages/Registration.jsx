@@ -10,43 +10,32 @@ import { useDispatch } from "react-redux";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 import { userRegistration } from "../services/users/actions";
-import { useState } from "react";
+import { useForm } from "../hooks/useForm";
 
 export function Registration() {
-  const dispatch = useDispatch();
-
-  const [form, setValue] = useState({
+  const { values, handleChange, setValues } = useForm({
     email: "",
     password: "",
     name: "",
   });
-  const [valuePassword, setValuePassword] = React.useState(null);
-  const onChangePassword = (e) => {
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
-  const [valueEmail, setValueEmail] = React.useState(null);
-  const onChangeEmail = (e) => {
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
-  const [valueName, setValueName] = React.useState(null);
-  const onChangeName = (e) => {
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
+  const dispatch = useDispatch();
 
-  const registration = () => {
-    dispatch(userRegistration(form));
+  const registrationOnClick = (e) => {
+    e.preventDefault();
+    dispatch(userRegistration(values));
   };
 
   return (
     <div className={pageStyle.child}>
-      <p className="text text_type_main-medium pb-6">Регистрация</p>
-      <form onSubmit={registration}>
+      <form onSubmit={registrationOnClick}>
+        <p className="text text_type_main-medium pb-6">Регистрация</p>
+
         <div className={classNames(pageStyle.input, "pb-6")}>
           <Input
             type={"text"}
             placeholder="Имя"
-            onChange={onChangeName}
-            value={valueName}
+            onChange={handleChange}
+            value={values.name}
             name={"name"}
             error={false}
             errorText={"Ошибка"}
@@ -56,21 +45,26 @@ export function Registration() {
         </div>
         <div className={classNames(pageStyle.input, "pb-6")}>
           <EmailInput
-            onChange={onChangeEmail}
-            value={valueEmail}
+            onChange={handleChange}
+            value={values.email}
             name={"email"}
             isIcon={false}
           />
         </div>
         <div className={classNames(pageStyle.input, "pb-6")}>
           <PasswordInput
-            onChange={onChangePassword}
-            value={valuePassword}
+            onChange={handleChange}
+            value={values.password}
             name={"password"}
             extraClass="mb-2"
           />
         </div>
-        <Button htmlType="submit" type="primary" size="medium">
+        <Button
+          htmlType="submit"
+          type="primary"
+          size="medium"
+          onClick={registrationOnClick}
+        >
           Зарегистрироваться
         </Button>
       </form>

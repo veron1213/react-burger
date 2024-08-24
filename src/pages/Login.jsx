@@ -18,11 +18,10 @@ export function Login() {
     email: "",
     password: "",
   });
-  const [valuePassword, setValuePassword] = React.useState(null);
+
   const onChangePassword = (e) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
-  const [valueEmail, setValueEmail] = React.useState(null);
   const onChangeEmail = (e) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
@@ -39,7 +38,7 @@ export function Login() {
         <div className={classNames(pageStyle.input, "pb-6")}>
           <EmailInput
             onChange={onChangeEmail}
-            value={valueEmail}
+            value={form.email}
             name={"email"}
             isIcon={false}
           />
@@ -47,7 +46,7 @@ export function Login() {
         <div className={classNames(pageStyle.input, "pb-6")}>
           <PasswordInput
             onChange={onChangePassword}
-            value={valuePassword}
+            value={form.password}
             name={"password"}
             extraClass="mb-2"
           />

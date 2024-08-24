@@ -53,7 +53,10 @@ export const checkUserAuth = () => {
             .catch(() => {
                 localStorage.removeItem("accessToken");
                 localStorage.removeItem("refreshToken");
-                dispatch(setUser(null));
+                const user= {email: null,
+                  name: null,
+              };
+                dispatch(setUser(user));
              })
             .finally(() => dispatch(setAuthChecked(true)));
       } else {
@@ -71,7 +74,6 @@ export const userRegistration = (form) => dispatch => {
       .then((data) => {
         dispatch({
             type: USER_REGISTRATION_SUCCESS,
-          //  payload: data.user,
           });
 
           localStorage.setItem("accessToken", data.accessToken.split('Bearer ')[1]);
@@ -109,12 +111,13 @@ export const forgotPassword = (form) => dispatch => {
 export const resetPassword = (form) => dispatch => {
   dispatch({
       type: RESET_PASSWORD,
+
   });
+  console.log(123)
   resetPasswordApi(form)
-    .then((data) => {
+    .then(() => {
       dispatch({
           type: RESET_PASSWORD_SUCCESS,
-        //  payload: data.data,
         });
     })
     .catch((e) => {
@@ -133,7 +136,6 @@ export const authorization = (form) => dispatch => {
     .then((data) => {
       dispatch({
           type: AUTHORIZATION_SUCCESS,
-        //  payload: setUser(data.user),
         });
       localStorage.setItem("accessToken", data.accessToken.split('Bearer ')[1]);
       localStorage.setItem("refreshToken", data.refreshToken);
@@ -185,13 +187,11 @@ export const getUser = () => {
 };
 
 export const updateInformation = (form) => dispatch=>{
-  console.log(form)
   dispatch({
     type: UPDATE_INFORMATION,
 });
 updateInformationApi(form)
   .then((data) => {
-    console.log(data)
     dispatch(setUser(data.user));
     })
   .catch((e) => {
@@ -205,27 +205,6 @@ updateInformationApi(form)
       });
   }});
 }
-
-
-// export const getUser = () => dispatch => {
-//   dispatch({
-//       type: GET_USER,
-//   });
-//   getUserApi()
-//     .then((data) => {
-//       dispatch({
-//           type: GET_USER_SUCCESS,
-//        //   payload: data.user,
-//         });
-//         dispatch(setUser(data.user));
-//     })
-//     .catch((e) => {
-//       dispatch({
-//           type: GET_USER_ERROR,
-//           payload: e.message,
-//         });
-//     });
-// }
 
 export const updateToken = () => dispatch => {
   dispatch({
