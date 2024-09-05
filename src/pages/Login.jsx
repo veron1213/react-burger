@@ -9,25 +9,18 @@ import classNames from "classnames";
 import { Link, useNavigate } from "react-router-dom";
 import { authorization } from "../services/users/actions";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useForm } from "../hooks/useForm";
 
 export function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [form, setValue] = useState({
+  const { values, handleChange, setValues } = useForm({
     email: "",
     password: "",
   });
 
-  const onChangePassword = (e) => {
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
-  const onChangeEmail = (e) => {
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
-
   const authorizationOnClick = () => {
-    dispatch(authorization(form));
+    dispatch(authorization(values));
     navigate("/");
   };
 
@@ -37,16 +30,16 @@ export function Login() {
       <form onSubmit={authorizationOnClick}>
         <div className={classNames(pageStyle.input, "pb-6")}>
           <EmailInput
-            onChange={onChangeEmail}
-            value={form.email}
+            onChange={handleChange}
+            value={values.email}
             name={"email"}
             isIcon={false}
           />
         </div>
         <div className={classNames(pageStyle.input, "pb-6")}>
           <PasswordInput
-            onChange={onChangePassword}
-            value={form.password}
+            onChange={handleChange}
+            value={values.password}
             name={"password"}
             extraClass="mb-2"
           />
