@@ -13,10 +13,22 @@
 .rsheader {
     composes: lsheader;
     justify-content: flex-end;
+    color: #8585AD;
+}
+
+.rsheaderActive {
+    composes: rsheader;
+    color: #F2F2F3;
 }
 
 .lsheaderitem {
     display: flex;
+    color: #8585AD;
+}
+
+.lsheaderitemActive {
+    composes: lsheaderitem;
+    color: #F2F2F3;
 }
 
 a {

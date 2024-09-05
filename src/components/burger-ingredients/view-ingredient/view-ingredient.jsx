@@ -17,8 +17,10 @@ import {
 import { useDrag } from "react-dnd";
 import { useMemo } from "react";
 import PropTypes from "prop-types";
+import { useLocation, Link } from "react-router-dom";
 
 function ViewIngredient({ ingr, type }) {
+  const location = useLocation();
   const { _id } = ingr;
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
@@ -27,24 +29,6 @@ function ViewIngredient({ ingr, type }) {
     type: type,
     item: { _id },
   });
-
-  const handleOpenModal = () => {
-    setVisible(true);
-    const detail = {
-      image: ingr.image,
-      name: ingr.name,
-      calories: ingr.calories,
-      proteins: ingr.proteins,
-      fat: ingr.fat,
-      carbohydrates: ingr.carbohydrates,
-    };
-    dispatch(addIngredientDetails(detail));
-  };
-
-  const handleCloseModal = () => {
-    setVisible(false);
-    dispatch(removeIngredientDetails());
-  };
 
   const { bun, ingredients } = useSelector((store) => ({
     bun: store.ingredientsConstructor.bun,
@@ -67,13 +51,14 @@ function ViewIngredient({ ingr, type }) {
   }, [bun, ingredients]);
 
   return (
-    <div
+    <Link
+      to={`/ingredients/${ingr._id}`}
+      state={{ background: location }}
       ref={dragRef}
       className={classNames(
         viewInrgedientStyle.blockIngredient,
         "pb-10 pl-4 pr-4"
       )}
-      onClick={handleOpenModal}
     >
       <img src={ingr.image} />
       {countIngredients > 0 && (
@@ -84,12 +69,7 @@ function ViewIngredient({ ingr, type }) {
         <CurrencyIcon type="primary" />
       </div>
       <h3 className="text text_type_main-default">{ingr.name}</h3>
-      {visible && (
-        <Modal header="Детали ингредиента" onClose={handleCloseModal}>
-          {<IngredientDetails />}
-        </Modal>
-      )}
-    </div>
+    </Link>
   );
 }
 ViewIngredient.propTypes = {

@@ -1,10 +1,36 @@
 import React from "react";
 import ingredientDetailsStyle from "./ingredient-details.module.css";
 import classNames from "classnames";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { addIngredientDetails } from "../../../services/ingredient-details/actions.js";
 
 function IngredientDetails() {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const { ingredientsAll, isLoading } = useSelector((store) => ({
+    ingredientsAll: store.viewIngredientsAll.ingredients,
+    isLoading: store.viewIngredientsAll.isLoading,
+  }));
   const { ingredient } = useSelector((state) => state.ingredientDetails);
+  const ingrForId = ingredientsAll.find((ingr) => ingr._id == id) || {};
+
+  useEffect(() => {
+    if (ingrForId) {
+      const detail = {
+        image: ingrForId.image,
+        name: ingrForId.name,
+        calories: ingrForId.calories,
+        proteins: ingrForId.proteins,
+        fat: ingrForId.fat,
+        carbohydrates: ingrForId.carbohydrates,
+      };
+      dispatch(addIngredientDetails(detail));
+    }
+  }, [ingrForId]);
+
+  if (isLoading || !ingredient) return <div>Загрузка</div>;
   return (
     <div className={classNames(ingredientDetailsStyle.details)}>
       <img

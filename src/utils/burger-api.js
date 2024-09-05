@@ -15,8 +15,97 @@ export function getOrderNumber(ingredients) {
     body: JSON.stringify({ ingredients}),
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
+      Authorization: 'Bearer ' + localStorage.getItem("accessToken")
     },
 
+  })
+} 
+
+export function registration(data) {
+  return request(`${NORMA_API}/auth/register`, {
+    method: 'POST',
+    body: JSON.stringify( data),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+
+  })
+} 
+
+export function forgotPasswordApi(data) {
+  return request(`${NORMA_API}/password-reset`, {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+
+  })
+} 
+
+export function resetPasswordApi(data) {
+  return request(`${NORMA_API}/password-reset/reset`, {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+
+  })
+} 
+
+export function authorizationApi(data) {
+  return request(`${NORMA_API}/auth/login`, {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+
+  })
+} 
+
+export function logoutApi() {
+  return request(`${NORMA_API}/auth/logout`, {
+    method: 'POST',
+    body: JSON.stringify({"token": localStorage.getItem("refreshToken")}),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+
+  })
+} 
+
+export function getUserApi() {
+  return request(`${NORMA_API}/auth/user`, {
+    method: 'GET',
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+      Authorization: 'Bearer ' + localStorage.getItem("accessToken")
+    },
+
+  })
+} 
+
+export function updateTokenApi() {
+  return request(`${NORMA_API}/auth/token`, {
+    method: 'POST',
+    body: JSON.stringify({"token": localStorage.getItem("refreshToken")}),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+
+  })
+} 
+
+export function updateInformationApi(data) {
+  return request(`${NORMA_API}/auth/user`, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+      Authorization: 'Bearer ' + localStorage.getItem("accessToken")
+    },
   })
 } 
 

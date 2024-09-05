@@ -1,23 +1,41 @@
 import React from "react";
-import { useEffect, useState } from "react";
+
 import appStyle from "./app.module.css";
 import AppHeader from "../header/app-header.jsx";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients.jsx";
-import BurgerConstructor from "../burger-constructor/burger-constructor.jsx";
-import { useDispatch, useSelector } from "react-redux";
+
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { Home } from "../../pages/Home.jsx";
+import { Login } from "../../pages/Login.jsx";
+import { Registration } from "../../pages/Registration";
+import { ForgotPassword } from "../../pages/ForgotPassword";
+import { ResetPassword } from "../../pages/ResetPassword";
+import { Profile } from "../../pages/Profile";
+import IngredientDetails from "../burger-ingredients/ingredient-details/ingredient-details.jsx";
+import Modal from "../modal/modal.jsx";
 import { loadIngredients } from "../../services/view-ingredients-all/actions";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { removeIngredientDetails } from "../../services/ingredient-details/actions.js";
+import { checkUserAuth } from "../../services/users/actions";
+import { Protected } from "../protected-routes/protected-routes";
 
 function App() {
+  const navigate = useNavigate();
+  const handleCloseModal = () => {
+    dispatch(removeIngredientDetails());
+    navigate(-1);
+  };
   const dispatch = useDispatch();
+  const location = useLocation();
 
-  const { ingredients, loading, error } = useSelector(
-    (state) => state.viewIngredientsAll
-  );
-
+  let state = location.state && location.state.background;
+  const { loading, error } = useSelector((state) => state.viewIngredientsAll);
   useEffect(() => {
     dispatch(loadIngredients());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(checkUserAuth());
   }, []);
 
   if (loading) {
@@ -27,20 +45,52 @@ function App() {
   if (!loading && error) {
     return <p>Ошибка: {error}</p>;
   }
-
-  if (!loading && ingredients.length === 0) {
-    return <p>Нет ингредиентов</p>;
-  }
-
   return (
     <div className={appStyle.App}>
       <AppHeader />
       <main>
-        {!loading && !error && (
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </DndProvider>
+        <Routes location={state || location}>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/login"
+            element={<Protected onlyUnAuth={true} component={<Login />} />}
+          />
+          <Route
+            path="/registration"
+            element={
+              <Protected onlyUnAuth={true} component={<Registration />} />
+            }
+          />
+          <Route
+            path="/forgot-password"
+            element={
+              <Protected onlyUnAuth={true} component={<ForgotPassword />} />
+            }
+          />
+          <Route
+            path="/reset-password"
+            element={
+              <Protected onlyUnAuth={true} component={<ResetPassword />} />
+            }
+          />
+          <Route
+            path="/profile"
+            element={<Protected onlyUnAuth={false} component={<Profile />} />}
+          />
+          <Route path="ingredients/:id" element={<IngredientDetails />} />
+        </Routes>
+
+        {state && (
+          <Routes>
+            <Route
+              path="ingredients/:id"
+              element={
+                <Modal header="Детали ингредиента" onClose={handleCloseModal}>
+                  <IngredientDetails />
+                </Modal>
+              }
+            />
+          </Routes>
         )}
       </main>
     </div>

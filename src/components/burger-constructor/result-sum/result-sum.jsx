@@ -11,8 +11,12 @@ import classNames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import { useMemo } from "react";
 import { loadOrder } from "../../../services/order-number/actions";
+import { useNavigate } from "react-router-dom";
 
 function ResultSum() {
+  const isAuthChecked = useSelector((store) => store.user.isAuthChecked);
+  const navigate = useNavigate();
+  const user = useSelector((store) => store.user.user);
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
 
@@ -35,11 +39,15 @@ function ResultSum() {
 
   const handleOpenModal = () => {
     if (bun) {
-      const ingredientsOrder = ingredients.map((ingredient) => ingredient._id);
-      ingredientsOrder.unshift(bun._id);
-      ingredientsOrder.push(bun._id);
-      dispatch(loadOrder(ingredientsOrder));
-      setVisible(true);
+      if (isAuthChecked && user.email != null && user.name != null) {
+        const ingredientsOrder = ingredients.map(
+          (ingredient) => ingredient._id
+        );
+        ingredientsOrder.unshift(bun._id);
+        ingredientsOrder.push(bun._id);
+        dispatch(loadOrder(ingredientsOrder));
+        setVisible(true);
+      } else navigate("/login");
     }
   };
 
