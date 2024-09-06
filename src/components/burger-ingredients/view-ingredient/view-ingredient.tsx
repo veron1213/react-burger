@@ -1,36 +1,33 @@
-import React from "react";
+import React, { FC } from "react";
 import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { burgerPropTypes } from "../../../utils/prop-types.js";
 import viewInrgedientStyle from "./view-ingredient.module.css";
-import Modal from "../../modal/modal.jsx";
-import { useState } from "react";
-import IngredientDetails from "../ingredient-details/ingredient-details.jsx";
 import classNames from "classnames";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addIngredientDetails,
-  removeIngredientDetails,
-} from "../../../services/ingredient-details/actions.js";
+import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 import { useMemo } from "react";
 import PropTypes from "prop-types";
 import { useLocation, Link } from "react-router-dom";
+import { IStoreType, IngredientType } from "../../../types/types";
 
-function ViewIngredient({ ingr, type }) {
+type TTypeViewIngredient  = {
+  type: string;
+  ingr: IngredientType;
+} 
+
+export const ViewIngredient: FC<TTypeViewIngredient> = ({ ingr, type }) => {
   const location = useLocation();
   const { _id } = ingr;
-  const [visible, setVisible] = useState(false);
-  const dispatch = useDispatch();
 
   const [, dragRef] = useDrag({
     type: type,
     item: { _id },
   });
 
-  const { bun, ingredients } = useSelector((store) => ({
+  const { bun, ingredients } = useSelector((store: IStoreType) => ({
     bun: store.ingredientsConstructor.bun,
     ingredients: store.ingredientsConstructor.ingredients,
   }));
@@ -72,8 +69,5 @@ function ViewIngredient({ ingr, type }) {
     </Link>
   );
 }
-ViewIngredient.propTypes = {
-  ingr: burgerPropTypes.isRequired,
-  type: PropTypes.string.isRequired,
-};
+
 export default ViewIngredient;

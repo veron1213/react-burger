@@ -1,9 +1,16 @@
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
+import { IStoreType } from "../../types/types";
+import { FC, ReactElement } from "react";
 
-export const Protected = ({ onlyUnAuth = false, component }) => {
-  const isAuthChecked = useSelector((store) => store.user.isAuthChecked);
-  const user = useSelector((store) => store.user.user);
+type ITypeProtected  = {
+  onlyUnAuth: boolean;
+  component: ReactElement;
+}
+
+export const Protected: FC<ITypeProtected> = ({ onlyUnAuth = false, component }) => {
+  const isAuthChecked = useSelector((store: IStoreType) => store.user.isAuthChecked);
+  const user = useSelector((store: IStoreType) => store.user.user);
   const location = useLocation();
   if (!isAuthChecked) {
     return null;

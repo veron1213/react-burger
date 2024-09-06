@@ -2,9 +2,10 @@ import React from "react";
 import orderDetailsStyle from "./order-details.module.css";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
+import { IStoreType } from "../../types/types";
 
 function OrderDetails() {
-  const { order, loading } = useSelector((store) => ({
+  const { order, loading } = useSelector((store: IStoreType) => ({
     order: store.orderNumber.order,
     loading: store.orderNumber.loading,
   }));
