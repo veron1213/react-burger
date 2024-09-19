@@ -1,10 +1,15 @@
-import React from "react";
+import React, { FC } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import tabsStyle from "./tabs.module.css";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 
-const Tabs = ({ tabRef, nameMin }) => {
+interface ITypeTabs {
+  nameMin: string;
+  tabRef: React.ForwardedRef<HTMLDivElement>;
+}
+
+const Tabs: FC<ITypeTabs> = ({ tabRef, nameMin }) => {
   const [current, setCurrent] = React.useState("one");
   return (
     <div

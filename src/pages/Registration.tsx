@@ -1,33 +1,50 @@
 import React from "react";
 import pageStyle from "./pages.module.css";
 import {
+  Input,
   PasswordInput,
   EmailInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import classNames from "classnames";
-import { Link, useNavigate } from "react-router-dom";
-import { authorization } from "../services/users/actions";
 import { useDispatch } from "react-redux";
+import classNames from "classnames";
+import { Link } from "react-router-dom";
+import { userRegistration } from "../services/users/actions";
 import { useForm } from "../hooks/useForm";
 
-export function Login() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+export function Registration() {
   const { values, handleChange, setValues } = useForm({
     email: "",
     password: "",
+    name: "",
   });
+  const dispatch = useDispatch();
 
-  const authorizationOnClick = () => {
-    dispatch(authorization(values));
-    navigate("/");
+  const registrationOnClick = (e: React.FormEvent<HTMLFormElement> ) => {
+    e.preventDefault();
+    dispatch(userRegistration(values) as any);
   };
 
   return (
     <div className={pageStyle.child}>
-      <p className="text text_type_main-medium pb-6">Вход</p>
-      <form onSubmit={authorizationOnClick}>
+      <form onSubmit={registrationOnClick}>
+        <p className="text text_type_main-medium pb-6">Регистрация</p>
+
+        <div className={classNames(pageStyle.input, "pb-6")}>
+          <Input
+            type={"text"}
+            placeholder="Имя"
+            onChange={handleChange}
+            value={values.name}
+            name={"name"}
+            error={false}
+            errorText={"Ошибка"}
+            size={"default"}
+            extraClass="ml-1"
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          />
+        </div>
         <div className={classNames(pageStyle.input, "pb-6")}>
           <EmailInput
             onChange={handleChange}
@@ -44,8 +61,12 @@ export function Login() {
             extraClass="mb-2"
           />
         </div>
-        <Button htmlType="submit" type="primary" size="medium">
-          Войти
+        <Button
+          htmlType="submit"
+          type="primary"
+          size="medium"
+        >
+          Зарегистрироваться
         </Button>
       </form>
       <div className={classNames(pageStyle.action, "pt-20")}>
@@ -56,35 +77,17 @@ export function Login() {
           )}
           style={{ textAlign: "right" }}
         >
-          Вы — новый пользователь?
+          Уже зарегистрированы?
         </p>
+
         <Link
-          to="/registration"
+          to="/login"
           className={classNames(
             pageStyle.textRight,
             "text text_type_main-default"
           )}
         >
-          Зарегистрироваться
-        </Link>
-      </div>
-      <div className={classNames(pageStyle.action, "pt-4")}>
-        <p
-          className={classNames(
-            pageStyle.textLeft,
-            "text text_type_main-default"
-          )}
-        >
-          Забыли пароль?
-        </p>
-        <Link
-          to="/forgot-password"
-          className={classNames(
-            pageStyle.textRight,
-            "text text_type_main-default"
-          )}
-        >
-          Восстановить пароль
+          Войти
         </Link>
       </div>
     </div>

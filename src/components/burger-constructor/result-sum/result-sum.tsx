@@ -4,19 +4,20 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import resultSumStyle from "./result-sum.module.css";
-import Modal from "../../modal/modal.jsx";
+import Modal from "../../modal/modal";
 import { useState } from "react";
-import OrderDetails from "../../order-details/order-details.jsx";
+import OrderDetails from "../../order-details/order-details";
 import classNames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import { useMemo } from "react";
-import { loadOrder } from "../../../services/order-number/actions";
+import { loadOrder } from "../../../services/order-number/actions.js";
 import { useNavigate } from "react-router-dom";
+import { IngredientType, IStoreType } from '../../../types/types.js'
 
 function ResultSum() {
-  const isAuthChecked = useSelector((store) => store.user.isAuthChecked);
+  const isAuthChecked = useSelector((store: IStoreType) => store.user.isAuthChecked);
   const navigate = useNavigate();
-  const user = useSelector((store) => store.user.user);
+  const user = useSelector((store: IStoreType) => store.user.user);
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
 
@@ -24,7 +25,7 @@ function ResultSum() {
     setVisible(false);
   };
 
-  const { bun, ingredients } = useSelector((store) => ({
+  const { bun, ingredients } = useSelector((store: IStoreType) => ({
     bun: store.ingredientsConstructor.bun,
     ingredients: store.ingredientsConstructor.ingredients,
   }));
@@ -32,7 +33,7 @@ function ResultSum() {
     let summ = bun ? bun.price * 2 : 0;
     summ +=
       ingredients.length > 0
-        ? ingredients.reduce((s, i) => (s = s + i.price), 0)
+        ? ingredients.reduce((s: number, i: IngredientType) => (s = s + i.price), 0)
         : 0;
     return summ;
   }, [bun, ingredients]);
@@ -41,11 +42,11 @@ function ResultSum() {
     if (bun) {
       if (isAuthChecked && user.email != null && user.name != null) {
         const ingredientsOrder = ingredients.map(
-          (ingredient) => ingredient._id
+          (ingredient: IngredientType) => ingredient._id
         );
         ingredientsOrder.unshift(bun._id);
         ingredientsOrder.push(bun._id);
-        dispatch(loadOrder(ingredientsOrder));
+        dispatch(loadOrder(ingredientsOrder) as any);
         setVisible(true);
       } else navigate("/login");
     }

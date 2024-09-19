@@ -10,10 +10,15 @@ import classNames from "classnames";
 import { NavLink } from "react-router-dom";
 import { logout, updateInformation } from "../services/users/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { IStoreType } from "../types/types";
 
 import { useForm } from "../hooks/useForm";
 
-const getNavLinkClassName = ({ isActive }) => {
+interface IBurgerIngr {
+  isActive: boolean;
+}
+
+const getNavLinkClassName = ({ isActive }:IBurgerIngr) => {
   const navigationItemStyle = isActive
     ? pageStyle.navigationItemActive
     : pageStyle.navigationItem;
@@ -22,7 +27,7 @@ const getNavLinkClassName = ({ isActive }) => {
 };
 
 export function Profile() {
-  const { name, email } = useSelector((store) => ({
+  const { name, email } = useSelector((store: IStoreType) => ({
     name: store.user.user.name,
     email: store.user.user.email,
   }));
@@ -30,7 +35,7 @@ export function Profile() {
   const dispatch = useDispatch();
 
   const logoutOnClick = () => {
-    dispatch(logout());
+    dispatch(logout() as any);
     localStorage.removeItem("resetPassword"); //для логики, если сначала забыли пароль, а потом вошли без сброса
   };
 
@@ -48,7 +53,7 @@ export function Profile() {
     password: "",
   });
   const updateInfo = () => {
-    dispatch(updateInformation(values));
+    dispatch(updateInformation(values) as any);
   };
 
   return (
@@ -89,7 +94,9 @@ export function Profile() {
             value={values.name}
             name={"name"}
             error={false}
-            icon={"EditIcon"}
+            icon={"EditIcon"}    
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
           />
         </div>
         <div className={classNames(pageStyle.input, "pb-6")}>
@@ -98,7 +105,6 @@ export function Profile() {
             value={values.email}
             name={"email"}
             placeholder="Логин"
-            icon={"EditIcon"}
           />
         </div>
         <div className={classNames(pageStyle.input, "pb-6")}>

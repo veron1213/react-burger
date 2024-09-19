@@ -1,10 +1,8 @@
 import React from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import ViewIngredientsConstructor from "./view-ingredients-constructor/view-ingredients-constructor.jsx";
-import ResultSum from "./result-sum/result-sum.jsx";
+import ViewIngredientsConstructor from "./view-ingredients-constructor/view-ingredients-constructor";
+import ResultSum from "./result-sum/result-sum";
 import burgerConstructorStyle from "./burger-constructor.module.css";
-import { burgerPropTypes } from "../../utils/prop-types.js";
-import PropTypes from "prop-types";
 import classNames from "classnames";
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,42 +11,43 @@ import {
   addIngredientsConstructor,
 } from "../../services/view-inrgedients-constructor/actions.js";
 import { nanoid } from "nanoid";
+import { IngredientType, IStoreType } from '../../types/types.js'
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
-  const { ingredientsAll } = useSelector((store) => ({
+  const { ingredientsAll } = useSelector((store: IStoreType) => ({
     ingredientsAll: store.viewIngredientsAll.ingredients,
   }));
 
   const [, dropTargetBunTop] = useDrop({
     accept: "bun",
-    drop(itemId) {
+    drop(itemId: IngredientType) {
       const detail =
-        ingredientsAll.find((ingr) => ingr._id == itemId._id) || {};
-      dispatch(addBunConstructor(detail));
+        ingredientsAll.find((ingr: IngredientType) => ingr._id == itemId._id) || {};
+      dispatch(addBunConstructor(detail) as any);
     },
   });
 
   const [, dropTargetBun] = useDrop({
     accept: "bun",
-    drop(itemId) {
+    drop(itemId: IngredientType) {
       const detail =
-        ingredientsAll.find((ingr) => ingr._id == itemId._id) || {};
-      dispatch(addBunConstructor(detail));
+        ingredientsAll.find((ingr: IngredientType) => ingr._id == itemId._id) || {};
+      dispatch(addBunConstructor(detail) as any);
     },
   });
 
   const [, dropTarget] = useDrop({
     accept: "ingredient",
-    drop(itemId) {
+    drop(itemId: IngredientType) {
       const key = nanoid();
       const detail =
-        ingredientsAll.find((ingr) => ingr._id == itemId._id) || {};
-      dispatch(addIngredientsConstructor({ ...detail, key }));
+        ingredientsAll.find((ingr: IngredientType) => ingr._id == itemId._id) || {};
+      dispatch(addIngredientsConstructor({ ...detail, key }) as any);
     },
   });
 
-  const { bun, ingredients } = useSelector((store) => ({
+  const { bun, ingredients } = useSelector((store: IStoreType) => ({
     bun: store.ingredientsConstructor.bun,
     ingredients: store.ingredientsConstructor.ingredients,
   }));
@@ -66,7 +65,7 @@ function BurgerConstructor() {
             type="top"
             isLocked={true}
             text={`${bun.name} (верх)`}
-            price={`${bun.price}`}
+            price={bun.price}
             thumbnail={`${bun.image}`}
           />
         ) : (
@@ -98,7 +97,7 @@ function BurgerConstructor() {
             type="bottom"
             isLocked={true}
             text={`${bun.name} (низ)`}
-            price={`${bun.price}`}
+            price={bun.price}
             thumbnail={`${bun.image}`}
           />
         ) : (

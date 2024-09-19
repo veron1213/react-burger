@@ -1,5 +1,4 @@
 import React from "react";
-import { burgerPropTypes } from "../../../utils/prop-types.js";
 import classNames from "classnames";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
@@ -11,14 +10,20 @@ import {
 import { removeIngredientsConstructor } from "../../../services/view-inrgedients-constructor/actions";
 import viewIngredientConstructorStyle from "./view-ingredient-constructor.module.css";
 import { replaceIngredients } from "../../../services/view-inrgedients-constructor/actions";
-import PropTypes from "prop-types";
+import { IngredientType, IngredientConstructorType } from '../../../types/types.js'
 
-function ViewIngredientConstructor({ ingr, index }) {
+interface ITypeIngredient {
+  ingr: IngredientConstructorType;
+  index: number;
+  key: string;
+}
+
+function ViewIngredientConstructor({ ingr, index }: ITypeIngredient) {
   const dispatch = useDispatch();
   const dragRef = useRef(null);
   const { _id } = ingr;
-  const handleClose = (key) => {
-    dispatch(removeIngredientsConstructor({ key }));
+  const handleClose = (key: string) => {
+    dispatch(removeIngredientsConstructor({ key }) as any);
   };
 
   const [{ handlerId }, drop] = useDrop({
@@ -28,7 +33,7 @@ function ViewIngredientConstructor({ ingr, index }) {
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item, monitor) {
+    hover(item: any, monitor) {
       if (!dragRef.current) {
         return;
       }
@@ -40,7 +45,7 @@ function ViewIngredientConstructor({ ingr, index }) {
         hoverIndex: hoverIndex,
       };
 
-      dispatch(replaceIngredients(numbersObject));
+      dispatch(replaceIngredients(numbersObject) as any);
 
       item.index = hoverIndex;
     },
@@ -72,8 +77,5 @@ function ViewIngredientConstructor({ ingr, index }) {
     </div>
   );
 }
-ViewIngredientConstructor.propTypes = {
-  ingr: burgerPropTypes.isRequired,
-  index: PropTypes.number.isRequired,
-};
+
 export default ViewIngredientConstructor;

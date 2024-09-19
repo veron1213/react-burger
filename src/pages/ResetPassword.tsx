@@ -21,7 +21,7 @@ export function ResetPassword() {
   });
 
   const resetPasswordOnClick = () => {
-    dispatch(resetPassword(values));
+    dispatch(resetPassword(values) as any);
     localStorage.removeItem("resetPassword");
     navigate("/login");
   };
@@ -56,6 +56,8 @@ export function ResetPassword() {
             errorText={"Ошибка"}
             size={"default"}
             extraClass="ml-1"
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
           />
         </div>
         <Button htmlType="submit" type="primary" size="medium">

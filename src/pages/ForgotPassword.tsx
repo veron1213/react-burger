@@ -19,8 +19,8 @@ export function ForgotPassword() {
   const dispatch = useDispatch();
 
   const sendOnEmail = () => {
-    dispatch(forgotPassword(values));
-    localStorage.setItem("resetPassword", true);
+    dispatch(forgotPassword(values) as any);
+    localStorage.setItem("resetPassword", "true");
     navigate("/reset-password");
   };
 

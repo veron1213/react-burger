@@ -5,16 +5,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { addIngredientDetails } from "../../../services/ingredient-details/actions.js";
+import { IStoreType } from "../../../types/types";
 
 function IngredientDetails() {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { ingredientsAll, isLoading } = useSelector((store) => ({
+  const { ingredientsAll, isLoading } = useSelector((store: IStoreType) => ({
     ingredientsAll: store.viewIngredientsAll.ingredients,
-    isLoading: store.viewIngredientsAll.isLoading,
+    isLoading: store.viewIngredientsAll.loading,
   }));
-  const { ingredient } = useSelector((state) => state.ingredientDetails);
-  const ingrForId = ingredientsAll.find((ingr) => ingr._id == id) || {};
+  const { ingredient } = useSelector((state: IStoreType) => state.ingredientDetails);
+  const ingrForId = ingredientsAll.find((ingr) => ingr._id == id);
 
   useEffect(() => {
     if (ingrForId) {
@@ -26,7 +27,7 @@ function IngredientDetails() {
         fat: ingrForId.fat,
         carbohydrates: ingrForId.carbohydrates,
       };
-      dispatch(addIngredientDetails(detail));
+      dispatch(addIngredientDetails(detail) as any);
     }
   }, [ingrForId]);
 
