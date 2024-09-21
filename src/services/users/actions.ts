@@ -1,6 +1,8 @@
 import { registration, forgotPasswordApi, resetPasswordApi,
          authorizationApi, logoutApi, getUserApi, updateTokenApi,
          updateInformationApi } from "../../utils/burger-api.js";
+         
+import { AppDispatch, AppThunk } from "../../types/types";
 
 export const USER_REGISTRATION_SUCCESS = "USER_REGISTRATION_SUCCESS";
 export const USER_REGISTRATION_ERROR = "USER_REGISTRATION_ERROR";
@@ -36,18 +38,18 @@ export const SET_AUTH_CHECKED = "SET_AUTH_CHECKED";
 export const UPDATE_INFORMATION = "UPDATE_INFORMATION";
 export const UPDATE_ERROR = "UPDATE_ERROR";
 
-export const setAuthChecked = (value) => ({
+export const setAuthChecked = (value: boolean) => ({
   type: SET_AUTH_CHECKED,
   payload: value,
 });
 
-export const setUser = (user) => ({
+export const setUser = (user: any) => ({
   type: SET_USER,
   payload: user,
 });
 
 export const checkUserAuth = () => {
-  return (dispatch) => {
+  return (dispatch:any) => {
       if (localStorage.getItem("accessToken")) {
           dispatch(getUser())
             .catch(() => {
@@ -65,70 +67,134 @@ export const checkUserAuth = () => {
   };
 };
 
-export const userRegistration = (form) => dispatch => {
 
-    dispatch({
-        type: USER_REGISTRATION,
-    });
+
+export interface IUserRegistrationAction {
+  readonly type: typeof USER_REGISTRATION;
+}
+
+export const userRegistrationAction = (): IUserRegistrationAction => ({
+  type: USER_REGISTRATION
+});
+
+
+export interface IUserRegistrationSuccessAction {
+  readonly type: typeof USER_REGISTRATION_SUCCESS;
+}
+
+export const userRegistrationSuccessAction = (): IUserRegistrationSuccessAction => ({
+  type: USER_REGISTRATION_SUCCESS
+});
+
+
+export interface IUserRegistrationErrorAction {
+  readonly type: typeof USER_REGISTRATION_ERROR;
+  readonly payload: string;
+}
+
+export const userRegistrationErrorAction = (payload: string): IUserRegistrationErrorAction => ({
+  type: USER_REGISTRATION_ERROR,
+  payload
+});
+
+
+export const userRegistration = (form: any) => (dispatch: AppDispatch) => {
+    dispatch(userRegistrationAction());
     registration(form)
       .then((data) => {
-        dispatch({
-            type: USER_REGISTRATION_SUCCESS,
-          });
-
+        dispatch(userRegistrationSuccessAction());
           localStorage.setItem("accessToken", data.accessToken.split('Bearer ')[1]);
           localStorage.setItem("refreshToken", data.refreshToken);
       })
       .catch((e) => {
-        dispatch({
-            type: USER_REGISTRATION_ERROR,
-            payload: e.message,
-          });
+        dispatch(userRegistrationErrorAction(e.message));
       });
 }
 
-export const forgotPassword = (form) => dispatch => {
 
-  dispatch({
-      type: FORGOT_PASSWORD,
-  });
+
+export interface IForgotPasswordAction {
+  readonly type: typeof FORGOT_PASSWORD;
+}
+
+export const forgotPasswordAction = (): IForgotPasswordAction => ({
+  type: FORGOT_PASSWORD
+});
+
+
+export interface IForgotPasswordSuccessAction {
+  readonly type: typeof FORGOT_PASSWORD_SUCCESS;
+}
+
+export const forgotPasswordSuccessAction = (): IForgotPasswordSuccessAction => ({
+  type: FORGOT_PASSWORD_SUCCESS
+});
+
+
+export interface IForgotPasswordErrorAction {
+  readonly type: typeof FORGOT_PASSWORD_ERROR;
+  readonly payload: string;
+}
+
+export const forgotPasswordErrorAction = (payload: string): IForgotPasswordErrorAction => ({
+  type: FORGOT_PASSWORD_ERROR,
+  payload
+});
+
+export const forgotPassword = (form: any) => (dispatch: AppDispatch) => {
+
+  dispatch(forgotPasswordAction());
   forgotPasswordApi(form)
     .then((data) => {
-      dispatch({
-          type: FORGOT_PASSWORD_SUCCESS,
-         // payload: data.data,
-        });
-
+      dispatch(forgotPasswordSuccessAction());
     })
     .catch((e) => {
-      dispatch({
-          type: FORGOT_PASSWORD_ERROR,
-          payload: e.message,
-        });
+      dispatch(forgotPasswordErrorAction(e.message));
     });
 }
 
-export const resetPassword = (form) => dispatch => {
-  dispatch({
-      type: RESET_PASSWORD,
 
-  });
-  console.log(123)
+
+export interface IResetPasswordAction {
+  readonly type: typeof RESET_PASSWORD;
+}
+
+export const resetPasswordAction = (): IResetPasswordAction => ({
+  type: RESET_PASSWORD
+});
+
+
+export interface IResetPasswordSuccessAction {
+  readonly type: typeof RESET_PASSWORD_SUCCESS;
+}
+
+export const resetPasswordSuccessAction = (): IResetPasswordSuccessAction => ({
+  type: RESET_PASSWORD_SUCCESS
+});
+
+
+export interface IResetPasswordErrorAction {
+  readonly type: typeof RESET_PASSWORD_ERROR;
+  readonly payload: string;
+}
+
+export const resetPasswordErrorAction = (payload: string): IResetPasswordErrorAction => ({
+  type: RESET_PASSWORD_ERROR,
+  payload
+});
+
+export const resetPassword = (form: any) => (dispatch: AppDispatch) => {
+  dispatch(resetPasswordAction());
   resetPasswordApi(form)
     .then(() => {
-      dispatch({
-          type: RESET_PASSWORD_SUCCESS,
-        });
+      dispatch(resetPasswordSuccessAction());
     })
     .catch((e) => {
-      dispatch({
-          type: RESET_PASSWORD_ERROR,
-          payload: e.message,
-        });
+      dispatch(resetPasswordErrorAction(e.message));
     });
 }
 
-export const authorization = (form) => dispatch => {
+export const authorization = (form: any) => (dispatch: AppDispatch) => {
   dispatch({
       type: AUTHORIZATION,
   });
@@ -151,8 +217,7 @@ export const authorization = (form) => dispatch => {
 }
 
 
-export const logout = () => dispatch=>  {  
-
+export const logout = () => (dispatch: AppDispatch) =>  {  
   dispatch({
       type: LOGOUT,
   });
@@ -186,7 +251,7 @@ export const getUser = () => {
   };
 };
 
-export const updateInformation = (form) => dispatch=>{
+export const updateInformation = (form) => (dispatch: AppDispatch) =>{
   dispatch({
     type: UPDATE_INFORMATION,
 });
@@ -206,10 +271,38 @@ updateInformationApi(form)
   }});
 }
 
-export const updateToken = () => dispatch => {
-  dispatch({
-      type: UPDATE_TOKEN,
-  });
+
+
+export interface IUpdateTokenAction {
+  readonly type: typeof UPDATE_TOKEN;
+}
+
+export const updateTokenAction = (): IUpdateTokenAction => ({
+  type: UPDATE_TOKEN
+});
+
+
+export interface IUpdateTokenSuccessAction {
+  readonly type: typeof UPDATE_TOKEN_SUCCESS;
+}
+
+export const updateTokenSuccessAction = (): IUpdateTokenSuccessAction => ({
+  type: UPDATE_TOKEN_SUCCESS
+});
+
+
+export interface IUpdateTokenErrorAction {
+  readonly type: typeof UPDATE_TOKEN_ERROR;
+  readonly payload: string;
+}
+
+export const updateTokenErrorAction = (payload: string): IUpdateTokenErrorAction => ({
+  type: UPDATE_TOKEN_ERROR,
+  payload
+});
+
+export const updateToken = () => (dispatch: AppDispatch) => {
+  dispatch(updateTokenAction());
   updateTokenApi()
     .then((data) => {
       dispatch({
@@ -220,9 +313,20 @@ export const updateToken = () => dispatch => {
         localStorage.setItem("refreshToken", data.refreshToken);
     })
     .catch((e) => {
-      dispatch({
-          type: UPDATE_TOKEN_ERROR,
-          payload: e.message,
-        });
+      dispatch(updateTokenErrorAction(e.message));
     });
 }
+
+
+export type TUsersActions = 
+    | IUserRegistrationAction
+    | IUserRegistrationSuccessAction
+    | IUserRegistrationErrorAction
+    | IForgotPasswordAction
+    | IForgotPasswordSuccessAction
+    | IForgotPasswordErrorAction
+    | IResetPasswordAction
+    | IResetPasswordSuccessAction
+    | IResetPasswordErrorAction
+    | IUpdateTokenAction
+    | IUpdateTokenErrorAction;    

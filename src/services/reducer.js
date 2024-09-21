@@ -6,9 +6,9 @@ import {orderNumberReducer} from './order-number/reducer.js';
 import {userReducer} from './users/reducer.js'
 
 export const rootReducer = combineReducers({
-    viewIngredientsAll: viewIngredientsAllReducer,
-    ingredientDetails: ingredientDetailsReducer,
-    ingredientsConstructor: ingredientsConstructorReducer,
-    orderNumber: orderNumberReducer,
+    // viewIngredientsAll: viewIngredientsAllReducer,
+    // ingredientDetails: ingredientDetailsReducer,
+    // ingredientsConstructor: ingredientsConstructorReducer,
+    // orderNumber: orderNumberReducer,
     user: userReducer,
 });

@@ -1,11 +1,18 @@
-import { ADD_INGREDIENTS_CONSTRUCTOR, DELETE_INGREDIENTS_CONSTRUCTOR, ADD_BUN_CONSTRUCTOR, REPLACE_INGREDIENTS, CLEAR_CONSTRUCTOR} from './actions.js';
+import { ADD_INGREDIENTS_CONSTRUCTOR, DELETE_INGREDIENTS_CONSTRUCTOR, ADD_BUN_CONSTRUCTOR, REPLACE_INGREDIENTS, CLEAR_CONSTRUCTOR
+    , TViewIngredientsConstructorActions} from './actions.js';
+import { IngredientType, IngredientConstructorType } from "../../types/types";
 
-const initialState = {
+type TInitialState = {
+    bun: IngredientType | null,
+    ingredients: IngredientConstructorType[],
+};
+
+const initialState: TInitialState = {
     bun: null,
     ingredients: [],
 };
 
-export const ingredientsConstructorReducer = (state = initialState, action) => {
+export const ingredientsConstructorReducer = (state = initialState, action: TViewIngredientsConstructorActions) => {
     switch (action.type) {
         case ADD_INGREDIENTS_CONSTRUCTOR:
             return {
@@ -20,7 +27,7 @@ export const ingredientsConstructorReducer = (state = initialState, action) => {
         case DELETE_INGREDIENTS_CONSTRUCTOR:
             return {
                 ...state,
-                ingredients: state.ingredients.filter(ingredient => ingredient.key !== action.payload.key),
+                ingredients: state.ingredients.filter(ingredient => ingredient.key !== action.payload),
             }
             case REPLACE_INGREDIENTS:
                 const ingredients = [...state.ingredients];

@@ -1,11 +1,12 @@
 import React from "react";
 import ingredientDetailsStyle from "./ingredient-details.module.css";
 import classNames from "classnames";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useDispatch } from "../../../hooks/selectorDispatch"
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { addIngredientDetails } from "../../../services/ingredient-details/actions.js";
-import { IStoreType } from "../../../types/types";
+import { IStoreType, IngredientDetailType } from "../../../types/types";
 
 function IngredientDetails() {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ function IngredientDetails() {
         fat: ingrForId.fat,
         carbohydrates: ingrForId.carbohydrates,
       };
-      dispatch(addIngredientDetails(detail) as any);
+      dispatch(addIngredientDetails(detail));
     }
   }, [ingrForId]);
 

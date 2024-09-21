@@ -1,12 +1,20 @@
-import { ORDER_NUMBER_LOAD_SUCCESS, ORDER_NUMBER_LOAD_ERROR, ORDER_NUMBER_LOADING} from './actions.js';
+import { ORDER_NUMBER_LOAD_SUCCESS, ORDER_NUMBER_LOAD_ERROR, ORDER_NUMBER_LOADING
+    , TOrderNumberActions
+} from './actions.js';
 
-const initialState = {
+type TInitialState = {
+    order: number | null,
+    loading: boolean,
+    error: string | null,
+};
+
+const initialState: TInitialState = {
     order: null,
     loading: false,
     error: null,
 };
 
-export const orderNumberReducer = (state = initialState, action) => {
+export const orderNumberReducer = (state = initialState, action: TOrderNumberActions) => {
     switch (action.type) {
         case ORDER_NUMBER_LOADING:
             return {

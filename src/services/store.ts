@@ -4,7 +4,7 @@ import {rootReducer} from "./reducer";
 import { thunk } from "redux-thunk";
 
 
-export const configureStore = (initialState) => {
+export const configureStore = (initialState: any) => {
     const store = createStore(
         rootReducer,
         initialState,
@@ -13,3 +13,5 @@ export const configureStore = (initialState) => {
 
     return store;
 }
+
+export const store = createStore(rootReducer);
