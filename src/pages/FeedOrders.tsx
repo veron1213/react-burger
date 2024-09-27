@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import ViewProfileOrders from "../components/view-profile-orders/view-profile-orders";
 import pageStyle from "./pages.module.css";
 import classNames from "classnames";
+import { WS_CONNECTION_CLOSED_FEED_ORDERS } from "../services/feed-orders/actions";
 
 export function FeedOrders() {
   const { feedOrders, total, totalToday } = useSelector((store) => ({
@@ -26,7 +27,9 @@ export function FeedOrders() {
   useEffect(() => {
     const wsUrl = `wss://norma.nomoreparties.space/orders/all`;
     dispatch(wsConnectionStartAction(`${wsUrl}`));
-    return () => {};
+    return () => {
+      dispatch({ type: WS_CONNECTION_CLOSED_FEED_ORDERS });
+    };
   }, [dispatch]);
   return (
     <div className={pageStyle.blockFeed}>
