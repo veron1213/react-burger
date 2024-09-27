@@ -1,4 +1,4 @@
-import { getIngredients } from "../../utils/burger-api.js";
+import { getIngredients } from "../../utils/burger-api";
 import { AppDispatch, AppThunk, IngredientType } from "../../types/types";
 export const INGREDIENTS_LOAD_SUCCESS: "INGREDIENTS_LOAD_SUCCESS" = "INGREDIENTS_LOAD_SUCCESS";
 export const INGREDIENTS_LOAD_ERROR: "INGREDIENTS_LOAD_ERROR" = "INGREDIENTS_LOAD_ERROR";
@@ -28,10 +28,10 @@ export const ingredientsLoadErrorAction = (payload: string): IIngredientsLoadErr
 
 export interface IIngredientsLoadSuccessAction {
   readonly type: typeof INGREDIENTS_LOAD_SUCCESS;
-  readonly payload: IngredientType;
+  readonly payload: IngredientType[];
 }
 
-export const ingredientsLoadSuccessAction = (payload: IngredientType): IIngredientsLoadSuccessAction => ({
+export const ingredientsLoadSuccessAction = (payload: IngredientType[]): IIngredientsLoadSuccessAction => ({
   type: INGREDIENTS_LOAD_SUCCESS,
   payload
 });

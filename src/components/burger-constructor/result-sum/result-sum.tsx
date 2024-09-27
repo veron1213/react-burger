@@ -8,16 +8,16 @@ import Modal from "../../modal/modal";
 import { useState } from "react";
 import OrderDetails from "../../order-details/order-details";
 import classNames from "classnames";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from '../../../hooks/selectorDispatch';
 import { useMemo } from "react";
-import { loadOrder } from "../../../services/order-number/actions.js";
+import { loadOrder } from "../../../services/order-number/actions";
 import { useNavigate } from "react-router-dom";
-import { IngredientType, IStoreType } from '../../../types/types.js'
+import { IngredientType } from '../../../types/types'
 
 function ResultSum() {
-  const isAuthChecked = useSelector((store: IStoreType) => store.user.isAuthChecked);
+  const isAuthChecked = useSelector((store) => store.user.isAuthChecked);
   const navigate = useNavigate();
-  const user = useSelector((store: IStoreType) => store.user.user);
+  const user = useSelector((store) => store.user.user);
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
 
@@ -25,7 +25,7 @@ function ResultSum() {
     setVisible(false);
   };
 
-  const { bun, ingredients } = useSelector((store: IStoreType) => ({
+  const { bun, ingredients } = useSelector((store) => ({
     bun: store.ingredientsConstructor.bun,
     ingredients: store.ingredientsConstructor.ingredients,
   }));
@@ -46,7 +46,7 @@ function ResultSum() {
         );
         ingredientsOrder.unshift(bun._id);
         ingredientsOrder.push(bun._id);
-        dispatch(loadOrder(ingredientsOrder) as any);
+        dispatch(loadOrder(ingredientsOrder));
         setVisible(true);
       } else navigate("/login");
     }

@@ -1,5 +1,5 @@
 import { ADD_INGREDIENTS_CONSTRUCTOR, DELETE_INGREDIENTS_CONSTRUCTOR, ADD_BUN_CONSTRUCTOR, REPLACE_INGREDIENTS, CLEAR_CONSTRUCTOR
-    , TViewIngredientsConstructorActions} from './actions.js';
+    , TViewIngredientsConstructorActions} from './actions';
 import { IngredientType, IngredientConstructorType } from "../../types/types";
 
 type TInitialState = {

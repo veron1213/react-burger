@@ -1,9 +1,7 @@
 import React from "react";
 
 import viewIngredientsConstructorStyle from "./view-ingredients-constructor.module.css";
-import { burgerPropTypes } from "../../../utils/prop-types.js";
-import PropTypes from "prop-types";
-import { IngredientConstructorType } from '../../../types/types.js'
+import { IngredientConstructorType } from '../../../types/types'
 
 import classNames from "classnames";
 
@@ -22,9 +20,5 @@ function ViewIngredientsConstructor({ burgerIngr }: IBurgerIngr ) {
     </div>
   );
 }
-
-ViewIngredientsConstructor.propTypes = {
-  burgerIngr: PropTypes.arrayOf(burgerPropTypes.isRequired).isRequired,
-};
 
 export default ViewIngredientsConstructor;

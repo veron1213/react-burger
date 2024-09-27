@@ -3,15 +3,13 @@ import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { burgerPropTypes } from "../../../utils/prop-types.js";
 import viewInrgedientStyle from "./view-ingredient.module.css";
 import classNames from "classnames";
-import { useSelector } from "react-redux";
+import { useSelector } from '../../../hooks/selectorDispatch';
 import { useDrag } from "react-dnd";
 import { useMemo } from "react";
-import PropTypes from "prop-types";
 import { useLocation, Link } from "react-router-dom";
-import { IStoreType, IngredientType } from "../../../types/types";
+import { IngredientType } from "../../../types/types";
 
 type TTypeViewIngredient  = {
   type: string;
@@ -27,7 +25,7 @@ export const ViewIngredient: FC<TTypeViewIngredient> = ({ ingr, type }) => {
     item: { _id },
   });
 
-  const { bun, ingredients } = useSelector((store: IStoreType) => ({
+  const { bun, ingredients } = useSelector((store) => ({
     bun: store.ingredientsConstructor.bun,
     ingredients: store.ingredientsConstructor.ingredients,
   }));

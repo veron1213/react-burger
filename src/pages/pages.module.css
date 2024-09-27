@@ -7,10 +7,7 @@
     display: flex;
     flex-direction: row; 
     justify-content: center;
-
 }
-
-
 
 .textLeft {
     color: #8585AD;
@@ -27,3 +24,35 @@
     margin-top: 180px; 
     text-align: center; 
   }
+
+
+  .container {
+     display: flex; 
+     justify-content: space-between;
+   }
+
+   .containerRight {
+    margin-top: 40px;
+    display: flex; 
+    justify-content: center;
+    width: 580px;
+  }
+
+  .containerColumn {
+    width: 272px;
+  }
+
+   .doneNumber {
+    color: #00CCCC
+  }
+
+
+  .textAlign {
+    text-align: left;
+  }
+.blockFeed {
+  max-height: calc(-150px + 100vh);
+}
+
+  
+

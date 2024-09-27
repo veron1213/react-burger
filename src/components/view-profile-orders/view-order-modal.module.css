@@ -1,0 +1,47 @@
+.details {
+    display: flex; 
+    align-items : flex-start; 
+    flex-direction: column;
+    max-width: 640px;
+}
+
+.textAlign {
+    text-align: left;
+}
+
+.done {
+    composes: textAlign;
+    color: #00CCCC;
+}
+
+.circularImage {
+    width: 64px; 
+    height: 64px; 
+    border-radius: 50%; 
+    border: 2px solid #4C4CFF; 
+    background-color: #131316;
+    object-fit: cover; 
+}
+
+.composition {
+    display: flex;
+    align-items : center; 
+    justify-content: space-between;
+}
+
+.compositionPrice {
+    composes: composition;
+    width: 100%;
+}
+
+.scroll {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width:612px;
+    max-height:312px; 
+    min-height:80px; 
+    overflow:hidden; 
+    overflow-y: scroll; 
+    scrollbar-width: thin;
+}

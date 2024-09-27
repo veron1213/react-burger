@@ -39,15 +39,15 @@ export const replaceIngredients = (numbersObject: any) => (dispatch: AppDispatch
 
 export interface IAddBunConstructorAction {
     readonly type: typeof ADD_BUN_CONSTRUCTOR;
-    readonly payload: IngredientType | {};
+    readonly payload: IngredientType | null;
   }
   
-export const addBunConstructorAction = (payload: IngredientType | {}): IAddBunConstructorAction => ({
+export const addBunConstructorAction = (payload: IngredientType | null): IAddBunConstructorAction => ({
     type: ADD_BUN_CONSTRUCTOR,
     payload
 });
 
-export const addBunConstructor = (bun: IngredientType | {}) => (dispatch: AppDispatch) => {
+export const addBunConstructor = (bun: IngredientType | null) => (dispatch: AppDispatch) => {
     dispatch(addBunConstructorAction(bun))
 }
 

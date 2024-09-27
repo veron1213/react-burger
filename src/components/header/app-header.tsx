@@ -27,10 +27,22 @@ function AppHeader() {
             </>
           )}
         </NavLink>
-        <a href="#" className={appHeader.lsheaderitem}>
-          <ListIcon type="secondary" />
-          <p className="text text_type_main-default ml-2">Лента заказов</p>
-        </a>
+        <NavLink
+          to={"/feed"}
+          className={({ isActive }) =>
+            isActive ? appHeader.lsheaderitemActive : appHeader.lsheaderitem
+          }
+        >
+          {({ isActive }) => (
+            <>
+              <ListIcon type={isActive ? "primary" : "secondary"} />
+              <p className="text text_type_main-default ml-2 mr-2">
+              Лента заказов
+              </p>
+            </>
+          )}
+        </NavLink>
+        
       </div>
       <NavLink to={"/"}>
         <Logo />

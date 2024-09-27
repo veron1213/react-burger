@@ -1,6 +1,6 @@
 import { AppDispatch, AppThunk } from "../../types/types";
-import { getOrderNumber } from "../../utils/burger-api.js";
-import { CLEAR_CONSTRUCTOR } from "../view-inrgedients-constructor/actions.js";
+import { getOrderNumber } from "../../utils/burger-api";
+import { CLEAR_CONSTRUCTOR } from "../view-inrgedients-constructor/actions";
 export const ORDER_NUMBER_LOAD_SUCCESS: "ORDER_NUMBER_LOAD_SUCCESS" = "ORDER_NUMBER_LOAD_SUCCESS";
 export const ORDER_NUMBER_LOAD_ERROR: "ORDER_NUMBER_LOAD_ERROR" = "ORDER_NUMBER_LOAD_ERROR";
 export const ORDER_NUMBER_LOADING: "ORDER_NUMBER_LOADING" = "ORDER_NUMBER_LOADING";

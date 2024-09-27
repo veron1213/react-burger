@@ -5,17 +5,17 @@ import ResultSum from "./result-sum/result-sum";
 import burgerConstructorStyle from "./burger-constructor.module.css";
 import classNames from "classnames";
 import { useDrop } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from '../../hooks/selectorDispatch';
 import {
   addBunConstructor,
   addIngredientsConstructor,
-} from "../../services/view-inrgedients-constructor/actions.js";
+} from "../../services/view-inrgedients-constructor/actions";
 import { nanoid } from "nanoid";
-import { IngredientType, IStoreType } from '../../types/types.js'
+import { IngredientType } from '../../types/types'
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
-  const { ingredientsAll } = useSelector((store: IStoreType) => ({
+  const { ingredientsAll } = useSelector((store) => ({
     ingredientsAll: store.viewIngredientsAll.ingredients,
   }));
 
@@ -23,8 +23,8 @@ function BurgerConstructor() {
     accept: "bun",
     drop(itemId: IngredientType) {
       const detail =
-        ingredientsAll.find((ingr: IngredientType) => ingr._id == itemId._id) || {};
-      dispatch(addBunConstructor(detail) as any);
+        ingredientsAll.find((ingr: IngredientType) => ingr._id == itemId._id) || null;
+      dispatch(addBunConstructor(detail));
     },
   });
 
@@ -32,8 +32,8 @@ function BurgerConstructor() {
     accept: "bun",
     drop(itemId: IngredientType) {
       const detail =
-        ingredientsAll.find((ingr: IngredientType) => ingr._id == itemId._id) || {};
-      dispatch(addBunConstructor(detail) as any);
+        ingredientsAll.find((ingr: IngredientType) => ingr._id == itemId._id) || null;
+      dispatch(addBunConstructor(detail));
     },
   });
 
@@ -42,12 +42,15 @@ function BurgerConstructor() {
     drop(itemId: IngredientType) {
       const key = nanoid();
       const detail =
-        ingredientsAll.find((ingr: IngredientType) => ingr._id == itemId._id) || {};
-      dispatch(addIngredientsConstructor({ ...detail, key }) as any);
+        ingredientsAll.find((ingr: IngredientType) => ingr._id == itemId._id) || null;
+        if(!detail) {
+          return
+        }
+      dispatch(addIngredientsConstructor({ ...detail, key }));
     },
   });
 
-  const { bun, ingredients } = useSelector((store: IStoreType) => ({
+  const { bun, ingredients } = useSelector((store) => ({
     bun: store.ingredientsConstructor.bun,
     ingredients: store.ingredientsConstructor.ingredients,
   }));

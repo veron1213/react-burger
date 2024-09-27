@@ -1,6 +1,6 @@
 import { ORDER_NUMBER_LOAD_SUCCESS, ORDER_NUMBER_LOAD_ERROR, ORDER_NUMBER_LOADING
     , TOrderNumberActions
-} from './actions.js';
+} from './actions';
 
 type TInitialState = {
     order: number | null,

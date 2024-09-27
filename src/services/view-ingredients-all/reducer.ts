@@ -1,9 +1,9 @@
 import { INGREDIENTS_LOAD_SUCCESS, INGREDIENTS_LOAD_ERROR, INGREDIENTS_LOADING
-    , TViewIngredientsAllActions } from './actions.js';
-import { IngredientType } from '../../types/types.js';
+    , TViewIngredientsAllActions } from './actions';
+import { IngredientType } from '../../types/types';
 
 type TInitialState = {
-    ingredients: IngredientType | [],
+    ingredients: IngredientType[],
     loading: boolean,
     error: string | null,
 };

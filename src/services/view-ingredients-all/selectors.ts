@@ -1,7 +1,7 @@
 import {createSelector} from "reselect";
-import { IStoreType } from "../../types/types";
+import { RootState } from '../../types/types';
 
-export const getAllIngredients = (state: IStoreType) => state.viewIngredientsAll.ingredients;
+export const getAllIngredients = (state: RootState) => state.viewIngredientsAll.ingredients;
 
 export const getIngredientsType = (name: string) => createSelector(
     getAllIngredients,

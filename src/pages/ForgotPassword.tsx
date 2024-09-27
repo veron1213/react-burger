@@ -7,7 +7,7 @@ import {
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 import { forgotPassword } from "../services/users/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch } from '../hooks/selectorDispatch';
 import { useNavigate } from "react-router-dom";
 import { useForm } from "../hooks/useForm";
 
@@ -19,7 +19,7 @@ export function ForgotPassword() {
   const dispatch = useDispatch();
 
   const sendOnEmail = () => {
-    dispatch(forgotPassword(values) as any);
+    dispatch(forgotPassword(values));
     localStorage.setItem("resetPassword", "true");
     navigate("/reset-password");
   };

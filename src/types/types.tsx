@@ -4,9 +4,12 @@ import { TOrderNumberActions } from '../services/order-number/actions';
 import { TViewIngredientsAllActions } from '../services/view-ingredients-all/actions';
 import { TViewIngredientsConstructorActions } from '../services/view-inrgedients-constructor/actions';
 import { TUsersActions } from '../services/users/actions';
+import { TOrderUserActions } from '../services/order-user/actions'
+import { TFeedOrdersActions } from '../services/feed-orders/actions';
 import { Action, ActionCreator } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { configureStore } from '../services/store'
+
 
 export interface IngredientType {
     _id: string;
@@ -75,14 +78,33 @@ export interface IStoreType {
     orderNumber: IOrderNumberType;
 }
 
-type TApplicationActions = 
+export type TApplicationActions = 
 | TIngredientDetailsActions 
 | TOrderNumberActions
 | TViewIngredientsAllActions
 | TViewIngredientsConstructorActions
-| TUsersActions;
+| TUsersActions
+| TOrderUserActions
+| TFeedOrdersActions;
 export type AppDispatch = Dispatch<TApplicationActions>; 
 const store = configureStore({});
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, Action, RootState, TApplicationActions>>; 
+
+export interface IOrders {
+  success: boolean;
+  orders: IOrdersUser[];
+  total: number;
+  totalToday: number;
+}
+
+export interface IOrdersUser {
+    ingredients: string[],
+    _id: string,
+    status: string,
+    number: number,
+    createdAt: string,
+    updatedAt: string,
+    name: string,
+}
 

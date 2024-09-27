@@ -1,4 +1,4 @@
-import { ADD_INGREDIENT_DETAILS, DELETE_INGREDIENT_DETAILS, TIngredientDetailsActions} from './actions.js';
+import { ADD_INGREDIENT_DETAILS, DELETE_INGREDIENT_DETAILS, TIngredientDetailsActions} from './actions';
 import { IngredientDetailType } from "../../types/types";
 
 type TInitialState = {

@@ -9,34 +9,36 @@ import { Login } from "../../pages/Login";
 import { Registration } from "../../pages/Registration";
 import { ForgotPassword } from "../../pages/ForgotPassword";
 import { ResetPassword } from "../../pages/ResetPassword";
-import { Profile } from "../../pages/Profile";
+import { Profile } from "../../pages/profile/Profile";
 import IngredientDetails from "../burger-ingredients/ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
-import { loadIngredients } from "../../services/view-ingredients-all/actions.js";
-import { useDispatch, useSelector } from "react-redux";
+import { loadIngredients } from "../../services/view-ingredients-all/actions";
+import { useDispatch, useSelector } from "../../hooks/selectorDispatch";
 import { useEffect } from "react";
-import { removeIngredientDetails } from "../../services/ingredient-details/actions.js";
-import { checkUserAuth } from "../../services/users/actions.js";
+import { removeIngredientDetails } from "../../services/ingredient-details/actions";
+import { checkUserAuth } from "../../services/users/actions";
 import { Protected } from "../protected-routes/protected-routes";
-import {IStoreType} from '../../types/types'
+import { FeedOrders } from "../../pages/FeedOrders";
+import OrderDetailsFeed from "../view-profile-orders/view-order-modal";
 
 function App() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleCloseModal = () => {
-    dispatch(removeIngredientDetails() as any);
+    dispatch(removeIngredientDetails());
     navigate(-1);
   };
-  const dispatch = useDispatch();
+
   const location = useLocation();
 
   let state = location.state && location.state.background;
-  const { loading, error } = useSelector((state: IStoreType) => state.viewIngredientsAll);
+  const { loading, error } = useSelector((state) => state.viewIngredientsAll);
   useEffect(() => {
-    dispatch(loadIngredients() as any);
+    dispatch(loadIngredients());
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(checkUserAuth() as any);
+    dispatch(checkUserAuth());
   }, []);
 
   if (loading) {
@@ -74,9 +76,21 @@ function App() {
               <Protected onlyUnAuth={true} component={<ResetPassword />} />
             }
           />
+          <Route path="/feed" element={<FeedOrders />} />
+          <Route path="/feed/:number" element={<OrderDetailsFeed />} />
           <Route
             path="/profile"
             element={<Protected onlyUnAuth={false} component={<Profile />} />}
+          />
+          <Route
+            path="/profile/orders"
+            element={<Protected onlyUnAuth={false} component={<Profile />} />}
+          />
+          <Route
+            path="/profile/orders/:number"
+            element={
+              <Protected onlyUnAuth={false} component={<OrderDetailsFeed />} />
+            }
           />
           <Route path="ingredients/:id" element={<IngredientDetails />} />
         </Routes>
@@ -88,6 +102,22 @@ function App() {
               element={
                 <Modal header="Детали ингредиента" onClose={handleCloseModal}>
                   <IngredientDetails />
+                </Modal>
+              }
+            />
+            <Route
+              path="feed/:number"
+              element={
+                <Modal onClose={handleCloseModal}>
+                  <OrderDetailsFeed />
+                </Modal>
+              }
+            />
+            <Route
+              path="/profile/orders/:number"
+              element={
+                <Modal onClose={handleCloseModal}>
+                  <OrderDetailsFeed />
                 </Modal>
               }
             />

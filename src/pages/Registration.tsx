@@ -6,7 +6,7 @@ import {
   EmailInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../hooks/selectorDispatch";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 import { userRegistration } from "../services/users/actions";
@@ -20,9 +20,9 @@ export function Registration() {
   });
   const dispatch = useDispatch();
 
-  const registrationOnClick = (e: React.FormEvent<HTMLFormElement> ) => {
+  const registrationOnClick = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(userRegistration(values) as any);
+    dispatch(userRegistration(values));
   };
 
   return (
@@ -61,11 +61,7 @@ export function Registration() {
             extraClass="mb-2"
           />
         </div>
-        <Button
-          htmlType="submit"
-          type="primary"
-          size="medium"
-        >
+        <Button htmlType="submit" type="primary" size="medium">
           Зарегистрироваться
         </Button>
       </form>

@@ -1,5 +1,6 @@
 .modal {
     width:612px;
+   
     background-color: #1c1c21;
     border-radius: 40px;
     position: absolute;
@@ -16,6 +17,7 @@
     justify-content: center;
     top:0;
     left: 0;
+     z-index: 999;
 }
 
 .headerModal {
