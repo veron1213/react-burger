@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import { useDispatch } from "react-redux";
+import { useDispatch } from '../../../hooks/selectorDispatch';
 import { useDrag, useDrop } from "react-dnd";
 import { useRef } from "react";
 import {
@@ -10,7 +10,7 @@ import {
 import { removeIngredientsConstructor } from "../../../services/view-inrgedients-constructor/actions";
 import viewIngredientConstructorStyle from "./view-ingredient-constructor.module.css";
 import { replaceIngredients } from "../../../services/view-inrgedients-constructor/actions";
-import { IngredientType, IngredientConstructorType } from '../../../types/types.js'
+import { IngredientConstructorType } from '../../../types/types'
 
 interface ITypeIngredient {
   ingr: IngredientConstructorType;
@@ -23,7 +23,7 @@ function ViewIngredientConstructor({ ingr, index }: ITypeIngredient) {
   const dragRef = useRef(null);
   const { _id } = ingr;
   const handleClose = (key: string) => {
-    dispatch(removeIngredientsConstructor({ key }) as any);
+    dispatch(removeIngredientsConstructor(key));
   };
 
   const [{ handlerId }, drop] = useDrop({
@@ -45,7 +45,7 @@ function ViewIngredientConstructor({ ingr, index }: ITypeIngredient) {
         hoverIndex: hoverIndex,
       };
 
-      dispatch(replaceIngredients(numbersObject) as any);
+      dispatch(replaceIngredients(numbersObject));
 
       item.index = hoverIndex;
     },

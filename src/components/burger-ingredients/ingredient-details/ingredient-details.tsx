@@ -1,20 +1,19 @@
 import React from "react";
 import ingredientDetailsStyle from "./ingredient-details.module.css";
 import classNames from "classnames";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "../../../hooks/selectorDispatch"
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { addIngredientDetails } from "../../../services/ingredient-details/actions.js";
-import { IStoreType } from "../../../types/types";
+import { addIngredientDetails } from "../../../services/ingredient-details/actions";
 
 function IngredientDetails() {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { ingredientsAll, isLoading } = useSelector((store: IStoreType) => ({
+  const { ingredientsAll, isLoading } = useSelector((store) => ({
     ingredientsAll: store.viewIngredientsAll.ingredients,
     isLoading: store.viewIngredientsAll.loading,
   }));
-  const { ingredient } = useSelector((state: IStoreType) => state.ingredientDetails);
+  const { ingredient } = useSelector((state) => state.ingredientDetails);
   const ingrForId = ingredientsAll.find((ingr) => ingr._id == id);
 
   useEffect(() => {
@@ -27,7 +26,7 @@ function IngredientDetails() {
         fat: ingrForId.fat,
         carbohydrates: ingrForId.carbohydrates,
       };
-      dispatch(addIngredientDetails(detail) as any);
+      dispatch(addIngredientDetails(detail));
     }
   }, [ingrForId]);
 

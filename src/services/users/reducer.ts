@@ -3,11 +3,20 @@ import { USER_REGISTRATION_SUCCESS, USER_REGISTRATION_ERROR, USER_REGISTRATION,
          RESET_PASSWORD_SUCCESS, RESET_PASSWORD_ERROR, RESET_PASSWORD,
          AUTHORIZATION_SUCCESS, AUTHORIZATION_ERROR, AUTHORIZATION,
          LOGOUT_SUCCESS, LOGOUT_ERROR, LOGOUT,
-         GET_USER_SUCCESS, GET_USER_ERROR, GET_USER,
-         SET_USER, SET_AUTH_CHECKED
-} from './actions.js';
+         SET_USER, SET_AUTH_CHECKED, TUsersActions
+} from './actions';
 
-const initialState = {
+type TInitialState = {
+    user: {
+        email: string | null, 
+        name: string | null, 
+    },
+isAuthChecked: boolean,
+loading: boolean,
+error: string | null,
+};
+
+const initialState: TInitialState = {
     user: {
             email: null, 
             name: null,
@@ -17,7 +26,7 @@ const initialState = {
     error: null,
 };
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action: TUsersActions) => {
     switch (action.type) {
         case SET_AUTH_CHECKED:
       return {
@@ -29,8 +38,7 @@ export const userReducer = (state = initialState, action) => {
         case FORGOT_PASSWORD:
         case RESET_PASSWORD:
         case AUTHORIZATION:
-        case LOGOUT:
-        case GET_USER: {
+        case LOGOUT: {
             return {
                 ...state,
                 loading: true,
@@ -51,7 +59,6 @@ export const userReducer = (state = initialState, action) => {
         case RESET_PASSWORD_ERROR:
         case AUTHORIZATION_ERROR:
         case LOGOUT_ERROR:
-        case GET_USER_ERROR:
             return {
                 ...state,
                 error: action.payload,
@@ -60,7 +67,6 @@ export const userReducer = (state = initialState, action) => {
         
         case AUTHORIZATION_SUCCESS:
         case USER_REGISTRATION_SUCCESS:
-        case GET_USER_SUCCESS:
         case FORGOT_PASSWORD_SUCCESS:
         case RESET_PASSWORD_SUCCESS:
             return {

@@ -2,9 +2,9 @@ import React from "react";
 import Tabs from "../tabs/tabs";
 import ViewIngredients from "./view-ingredients/view-ingredients";
 import burgerIngredientsStyle from "./burger-ingredients.module.css";
-import { useSelector } from "react-redux";
-import { getIngredientsType } from "../../services/view-ingredients-all/selectors.js";
-import { createRef, RefObject, useState } from "react";
+import { useSelector } from '../../hooks/selectorDispatch';
+import { getIngredientsType } from "../../services/view-ingredients-all/selectors";
+import { createRef, useState } from "react";
 
 function BurgerIngredients() {
   const buns = useSelector(getIngredientsType("bun"));

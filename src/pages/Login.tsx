@@ -8,7 +8,7 @@ import {
 import classNames from "classnames";
 import { Link, useNavigate } from "react-router-dom";
 import { authorization } from "../services/users/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch } from '../hooks/selectorDispatch';
 import { useForm } from "../hooks/useForm";
 
 export function Login() {
@@ -20,7 +20,7 @@ export function Login() {
   });
 
   const authorizationOnClick = () => {
-    dispatch(authorization(values) as any);
+    dispatch(authorization(values));
     navigate("/");
   };
 

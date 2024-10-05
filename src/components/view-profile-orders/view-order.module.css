@@ -1,0 +1,76 @@
+.divelement {
+    display: inline-block;
+    border-radius: var(--common-border-radius-s);
+    background:  #1C1C21;
+    width: 100%;
+    font-family: 'Jet Brains Mono';
+    line-height: 24px;
+    color: #F2F2F3;
+    flex-grow: 1;
+    box-sizing: border-box;
+    
+}
+
+.container {
+    display: flex; 
+    align-items : center; 
+    justify-content: space-between;
+}
+
+.lastImage {
+    position: relative;
+    text-align: center;
+    left: 250px;
+    width: 68px;
+    height: 68px;
+}
+
+.lastImageCount {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.time {
+    color: #8585AD;
+}
+
+.notDone {
+    text-align: left;
+}
+
+.done {
+    composes: notDone;
+    color: #00CCCC;
+}
+
+.circularImage {
+    position: absolute;
+    display: flex;
+    width: 64px; 
+    height: 64px; 
+    border-radius: 50%; 
+    border: 2px solid #4C4CFF; 
+    background-color: #131316;
+    object-fit: cover; 
+}
+
+.circularImageLast {
+    composes: circularImage;
+    filter: opacity(50%);
+}
+
+.imageStackWrapper {
+    display: flex;
+    position: relative;
+    height: 64px;
+}
+
+.nameOrder {
+    text-align: left;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+

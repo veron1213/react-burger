@@ -1,5 +1,5 @@
 .container {
-    margin-top: 120px; 
+   /* margin-top: 120px; */
     display: flex; 
     justify-content: space-between;
     width: 100%;
@@ -11,6 +11,7 @@
 }
 
 .navigation {
+    margin-top: 120px;
     display: flex;
     flex-direction: column;
     width: 320px;
@@ -34,10 +35,17 @@
 }
 
 .editItem {
+    margin-top: 120px;
     flex: 1 1;
 }
 
 .buttonDiv {
     width: 480px;
     text-align: end;
+}
+
+.ordersContainer {
+    flex: 1;
+    padding-top: 40px;
+    max-height: calc(-105px + 100vh);
 }

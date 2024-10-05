@@ -7,7 +7,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import classNames from "classnames";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch } from '../hooks/selectorDispatch';
 import { resetPassword } from "../services/users/actions";
 import { useForm } from "../hooks/useForm";
 import { useEffect } from "react";
@@ -21,7 +21,7 @@ export function ResetPassword() {
   });
 
   const resetPasswordOnClick = () => {
-    dispatch(resetPassword(values) as any);
+    dispatch(resetPassword(values));
     localStorage.removeItem("resetPassword");
     navigate("/login");
   };
