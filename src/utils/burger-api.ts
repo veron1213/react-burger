@@ -1,123 +1,122 @@
-import {NORMA_API} from './url'
+import { NORMA_API } from "./url";
 
 function request(url: string, options?: any) {
-
-  return fetch(url, options).then(checkResponse)
+  return fetch(url, options).then(checkResponse);
 }
 
- export function getIngredients() {
-  return request(`${NORMA_API}/ingredients`)
+export function getIngredients() {
+  return request(`${NORMA_API}/ingredients`);
 }
 
 export function getOrderNumber(ingredients: string[]) {
   return request(`${NORMA_API}/orders`, {
-    method: 'POST',
-    body: JSON.stringify({ ingredients}),
+    method: "POST",
+    body: JSON.stringify({ ingredients }),
     headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-      Authorization: 'Bearer ' + localStorage.getItem("accessToken")
+      "Content-type": "application/json; charset=UTF-8",
+      Authorization: "Bearer " + localStorage.getItem("accessToken"),
     },
+  });
+}
 
-  })
-} 
-
-export function registration(data: {email: string, password: string, name: string}) {
+export function registration(data: {
+  email: string;
+  password: string;
+  name: string;
+}) {
   return request(`${NORMA_API}/auth/register`, {
-    method: 'POST',
-    body: JSON.stringify( data),
+    method: "POST",
+    body: JSON.stringify(data),
     headers: {
-      'Content-type': 'application/json; charset=UTF-8',
+      "Content-type": "application/json; charset=UTF-8",
     },
+  });
+}
 
-  })
-} 
-
-export function forgotPasswordApi(data: {email: string}) {
+export function forgotPasswordApi(data: { email: string }) {
   return request(`${NORMA_API}/password-reset`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify(data),
     headers: {
-      'Content-type': 'application/json; charset=UTF-8',
+      "Content-type": "application/json; charset=UTF-8",
     },
+  });
+}
 
-  })
-} 
-
-export function resetPasswordApi(data: {token: string, password: string}) {
+export function resetPasswordApi(data: { token: string; password: string }) {
   return request(`${NORMA_API}/password-reset/reset`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify(data),
     headers: {
-      'Content-type': 'application/json; charset=UTF-8',
+      "Content-type": "application/json; charset=UTF-8",
     },
+  });
+}
 
-  })
-} 
-
-export function authorizationApi(data: {email: string, password: string}) {
+export function authorizationApi(data: { email: string; password: string }) {
   return request(`${NORMA_API}/auth/login`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify(data),
     headers: {
-      'Content-type': 'application/json; charset=UTF-8',
+      "Content-type": "application/json; charset=UTF-8",
     },
-
-  })
-} 
+  });
+}
 
 export function logoutApi() {
   return request(`${NORMA_API}/auth/logout`, {
-    method: 'POST',
-    body: JSON.stringify({"token": localStorage.getItem("refreshToken")}),
+    method: "POST",
+    body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
     headers: {
-      'Content-type': 'application/json; charset=UTF-8',
+      "Content-type": "application/json; charset=UTF-8",
     },
-
-  })
-} 
+  });
+}
 
 export function getUserApi() {
   return request(`${NORMA_API}/auth/user`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-      Authorization: 'Bearer ' + localStorage.getItem("accessToken")
+      "Content-type": "application/json; charset=UTF-8",
+      Authorization: "Bearer " + localStorage.getItem("accessToken"),
     },
-
-  })
-} 
+  });
+}
 
 export function getOrdersApi(number: string | undefined) {
   return request(`${NORMA_API}/orders/${number}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-type': 'application/json; charset=UTF-8',
+      "Content-type": "application/json; charset=UTF-8",
     },
-  })
-} 
+  });
+}
 
 export function updateTokenApi() {
   return request(`${NORMA_API}/auth/token`, {
-    method: 'POST',
-    body: JSON.stringify({"token": localStorage.getItem("refreshToken")}),
+    method: "POST",
+    body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
     headers: {
-      'Content-type': 'application/json; charset=UTF-8',
+      "Content-type": "application/json; charset=UTF-8",
     },
+  });
+}
 
-  })
-} 
-
-export function updateInformationApi(data: {name: string, email: string, password: string}) {
+export function updateInformationApi(data: {
+  name: string;
+  email: string;
+  password: string;
+}) {
   return request(`${NORMA_API}/auth/user`, {
-    method: 'PATCH',
+    method: "PATCH",
     body: JSON.stringify(data),
     headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-      Authorization: 'Bearer ' + localStorage.getItem("accessToken")
+      "Content-type": "application/json; charset=UTF-8",
+      Authorization: "Bearer " + localStorage.getItem("accessToken"),
     },
-  })
-} 
+  });
+}
 
- const checkResponse = (res: Response) => {
-   return res.ok ? res.json() : res.json().then(err => Promise.reject(err));
- };
+const checkResponse = (res: Response) => {
+  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+};
