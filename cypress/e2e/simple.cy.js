@@ -8,13 +8,7 @@ describe("service is available", function () {
   beforeEach(function () {
     cy.visit("/");
     cy.window().then((win) => {
-      win.localStorage.setItem(
-        "accessToken",
-
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzIzMjUwMTE5ZDQ1MDAxYjUwMDgxMyIsImlhdCI6MTcyODIzNjM5NywiZXhwIjoxNzI4MjM3NTk3fQ.aRl8soUd2_f6Sxu4_6OmJGfQJbp1M3TL4077tZkzwHM"
-
-        //"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzIzMjUwMTE5ZDQ1MDAxYjUwMDgxMyIsImlhdCI6MTcyODIzNjM5NywiZXhwIjoxNzI4MjM3NTk3fQ.aRl8soUd2_f6Sxu4_6OmJGfQJbp1M3TL4077tZkzwHM"
-      );
+      win.localStorage.setItem("accessToken", "testTokenAccess");
     });
   });
 
