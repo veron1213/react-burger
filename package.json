@@ -2,10 +2,10 @@
   "name": "react-burger",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://veron1213.github.io/react-burger/", 
   "dependencies": {
     "@redux-devtools/extension": "^3.3.0",
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.103",
@@ -32,7 +32,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "npx eslint src",
-    "lint-fix": "npx eslint src --fix"
+    "lint-fix": "npx eslint src --fix",
+    "cypress:open": "./node_modules/.bin/cypress open",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -53,7 +56,14 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react": "^16.0.1",
+    "cypress": "^13.15.0",
     "eslint": "^8.57.0",
-    "eslint-config-react-app": "^7.0.1"
+    "eslint-config-react-app": "^7.0.1",
+    "fetch-mock": "^11.1.5",
+    "gh-pages": "^6.1.1",
+    "jest": "^27.5.1",
+    "react-test-renderer": "^18.3.1",
+    "redux-mock-store": "^1.5.4"
   }
 }

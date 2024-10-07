@@ -8,10 +8,10 @@ import classNames from "classnames";
 
 const modalRoot = document.getElementById("react-modals") as HTMLElement;
 
-type ITypeModal  = {
+type ITypeModal = {
   header?: string;
   onClose: () => void;
-}  & React.HTMLProps<HTMLDivElement>;
+} & React.HTMLProps<HTMLDivElement>;
 
 export const Modal: FC<ITypeModal> = ({ header, onClose, children }) => {
   useEffect(() => {
@@ -29,15 +29,20 @@ export const Modal: FC<ITypeModal> = ({ header, onClose, children }) => {
 
   return ReactDOM.createPortal(
     <div className={classNames(modalStyle.block)}>
-      <div className={classNames(modalStyle.modal, "p-10")}>
+      <div
+        className={classNames(modalStyle.modal, "p-10")}
+        data-testid={`modal`}
+      >
         <div className={classNames(modalStyle.headerModal)}>
           <p className="text text_type_main-large">{header}</p>
-          <CloseIcon
-            type="primary"
-            onClick={() => {
-              onClose();
-            }}
-          />
+          <div data-testid={`closeIcon`}>
+            <CloseIcon
+              type="primary"
+              onClick={() => {
+                onClose();
+              }}
+            />
+          </div>
         </div>
         {children}
       </div>
@@ -45,6 +50,6 @@ export const Modal: FC<ITypeModal> = ({ header, onClose, children }) => {
     </div>,
     modalRoot
   );
-}
+};
 
 export default Modal;
