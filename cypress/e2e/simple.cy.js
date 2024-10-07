@@ -7,9 +7,6 @@ const password = "12345qwerty";
 describe("service is available", function () {
   beforeEach(function () {
     cy.visit("/");
-    cy.window().then((win) => {
-      win.localStorage.setItem("accessToken", "testTokenAccess");
-    });
   });
 
   it("Авторизация", () => {
@@ -54,6 +51,22 @@ describe("service is available", function () {
     cy.get('[data-testid="modalOverlay"]').as("modalOverlay");
     cy.get("@modalOverlay").click({ force: true });
     cy.get(modal).should("not.exist");
+  });
+});
+
+describe("service is available", function () {
+  beforeEach(function () {
+    cy.visit("/");
+    cy.intercept("GET", `${NORMA_API}/auth/user`, { fixture: "user.json" });
+
+    window.localStorage.setItem(
+      "accessToken",
+      JSON.stringify("test123-accessToken")
+    );
+    window.localStorage.setItem(
+      "refreshToken",
+      JSON.stringify("test123-refreshToken")
+    );
   });
 
   it("Перетаскивание элемента и авторизация", function () {

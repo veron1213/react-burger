@@ -6,6 +6,7 @@ import {
   WS_GET_FEED_ORDERS,
 } from "./actions";
 import { initialState } from "./reducer";
+import { orderUser } from "../valueForTest";
 
 describe("todos feedOrdersReducer", () => {
   it("should return the initial state", () => {
@@ -37,19 +38,7 @@ describe("todos feedOrdersReducer", () => {
   });
 
   it("should handle WS_GET_FEED_ORDERS", () => {
-    const order = {
-      orders: {
-        ingredients: ["ingredient1", "ingredient2", "ingredient3"],
-        _id: "123",
-        status: "created",
-        number: "604",
-        createdAt: "2024-05-12",
-        updatedAt: "2024-06-12",
-        name: "Бургер с тремя ингредиентами",
-      },
-      total: 100,
-      totalToday: 20,
-    };
+    const order = orderUser;
     expect(
       feedOrdersReducer(initialState, {
         type: WS_GET_FEED_ORDERS,

@@ -1,1 +1,1 @@
-Проект доступен по ссылке: https://veron1213.github.io/
+Проект доступен по ссылке: https://veron1213.github.io/react-burger/
