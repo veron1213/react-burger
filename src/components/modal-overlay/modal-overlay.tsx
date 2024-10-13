@@ -1,13 +1,14 @@
 import React, { FC } from "react";
 import modalOverlayStyle from "./modal-overlay.module.css";
 
-type ITypeModalOverlay  = {
+type ITypeModalOverlay = {
   onClose: () => void;
-}
+};
 
 const ModalOverlay: FC<ITypeModalOverlay> = ({ onClose }) => {
   return (
     <div
+      data-testid={`modalOverlay`}
       className={modalOverlayStyle.overlay}
       onClick={(e) => {
         e.stopPropagation();
@@ -15,6 +16,6 @@ const ModalOverlay: FC<ITypeModalOverlay> = ({ onClose }) => {
       }}
     />
   );
-}
+};
 
 export default ModalOverlay;

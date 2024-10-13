@@ -8,7 +8,7 @@ import {
 import classNames from "classnames";
 import { Link, useNavigate } from "react-router-dom";
 import { authorization } from "../services/users/actions";
-import { useDispatch } from '../hooks/selectorDispatch';
+import { useDispatch } from "../hooks/selectorDispatch";
 import { useForm } from "../hooks/useForm";
 
 export function Login() {
@@ -28,7 +28,10 @@ export function Login() {
     <div className={pageStyle.child}>
       <p className="text text_type_main-medium pb-6">Вход</p>
       <form onSubmit={authorizationOnClick}>
-        <div className={classNames(pageStyle.input, "pb-6")}>
+        <div
+          className={classNames(pageStyle.input, "pb-6")}
+          data-testid={`emailInput`}
+        >
           <EmailInput
             onChange={handleChange}
             value={values.email}
@@ -36,7 +39,10 @@ export function Login() {
             isIcon={false}
           />
         </div>
-        <div className={classNames(pageStyle.input, "pb-6")}>
+        <div
+          className={classNames(pageStyle.input, "pb-6")}
+          data-testid={`passwordInput`}
+        >
           <PasswordInput
             onChange={handleChange}
             value={values.password}

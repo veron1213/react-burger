@@ -5,13 +5,13 @@ import ResultSum from "./result-sum/result-sum";
 import burgerConstructorStyle from "./burger-constructor.module.css";
 import classNames from "classnames";
 import { useDrop } from "react-dnd";
-import { useDispatch, useSelector } from '../../hooks/selectorDispatch';
+import { useDispatch, useSelector } from "../../hooks/selectorDispatch";
 import {
   addBunConstructor,
   addIngredientsConstructor,
 } from "../../services/view-inrgedients-constructor/actions";
 import { nanoid } from "nanoid";
-import { IngredientType } from '../../types/types'
+import { IngredientType } from "../../types/types";
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
@@ -23,7 +23,8 @@ function BurgerConstructor() {
     accept: "bun",
     drop(itemId: IngredientType) {
       const detail =
-        ingredientsAll.find((ingr: IngredientType) => ingr._id == itemId._id) || null;
+        ingredientsAll.find((ingr: IngredientType) => ingr._id == itemId._id) ||
+        null;
       dispatch(addBunConstructor(detail));
     },
   });
@@ -32,7 +33,8 @@ function BurgerConstructor() {
     accept: "bun",
     drop(itemId: IngredientType) {
       const detail =
-        ingredientsAll.find((ingr: IngredientType) => ingr._id == itemId._id) || null;
+        ingredientsAll.find((ingr: IngredientType) => ingr._id == itemId._id) ||
+        null;
       dispatch(addBunConstructor(detail));
     },
   });
@@ -42,10 +44,11 @@ function BurgerConstructor() {
     drop(itemId: IngredientType) {
       const key = nanoid();
       const detail =
-        ingredientsAll.find((ingr: IngredientType) => ingr._id == itemId._id) || null;
-        if(!detail) {
-          return
-        }
+        ingredientsAll.find((ingr: IngredientType) => ingr._id == itemId._id) ||
+        null;
+      if (!detail) {
+        return;
+      }
       dispatch(addIngredientsConstructor({ ...detail, key }));
     },
   });
@@ -62,6 +65,7 @@ function BurgerConstructor() {
       <div
         ref={dropTargetBunTop}
         className={classNames(burgerConstructorStyle.burgerBun, "ml-6 pb-2")}
+        data-testid={`containerBunTop`}
       >
         {bun ? (
           <ConstructorElement
@@ -82,7 +86,8 @@ function BurgerConstructor() {
           </div>
         )}
       </div>
-      <div ref={dropTarget}>
+      <div ref={dropTarget} data-testid={`containerIngredients`}>
+        {" "}
         {ingredients.length > 0 ? (
           <ViewIngredientsConstructor burgerIngr={ingredients} />
         ) : (
@@ -94,6 +99,7 @@ function BurgerConstructor() {
       <div
         ref={dropTargetBun}
         className={classNames(burgerConstructorStyle.burgerBun, "ml-6 pt-2")}
+        data-testid={`containerBunBottom`}
       >
         {bun ? (
           <ConstructorElement
